@@ -93,6 +93,10 @@ document.createElement = function(...args) {
   return scriptElt
 }
 
+try {
+  eruda.init()
+} catch (e) {console.error(e)};
+
 // Starts the monitoring
 observer.observe(document.documentElement, {
     childList: true,
