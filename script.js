@@ -39,6 +39,7 @@ function needsToBeBlacklisted(src, type) {
     result += src.includes(url);
   });
   checked.push([src, type, result]);
+  if (result) console.log('Blocked script from source ', src, ', scripts checked so far: ', checked);
   return result;
 }
 
