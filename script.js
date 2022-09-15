@@ -23,7 +23,7 @@ const observer = new MutationObserver(mutations => {
                 const type = node.type;
                 // If the src is inside the blacklist
                 if(needsToBeBlacklisted(src, type)) {
-                    console.log('Blocked script of type ', type, ' from source ', src);
+                    console.log('Blocked script from source ', src, ', scripts checked so far: ', checked);
                     node.type = 'javascript/blocked';
                     //node.parentElement.removeChild(node)
                 }
