@@ -39,7 +39,7 @@ function needsToBeBlacklisted(src, type) {
     result += src.includes(url);
   });
   checked.push([src, type, result]);
-  if (result) console.log('Blocked script from source ', src, ', scripts checked so far: ', checked);
+  if (result) {console.log('Blocked script from source ', src, ', scripts checked so far: ', checked)};
   return result;
 }
 
@@ -98,3 +98,5 @@ observer.observe(document.documentElement, {
     childList: true,
     subtree: true
 })
+
+setTimeout(() =>{console.log(checked)}, 1000);
