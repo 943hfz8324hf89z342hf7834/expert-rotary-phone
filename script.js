@@ -11,6 +11,8 @@ const blocked = [
   'z.moatads.com', 
   'daineely.net'
   ];
+  
+const checked = [];
 
 const observer = new MutationObserver(mutations => {
     mutations.forEach(({ addedNodes }) => {
@@ -31,10 +33,12 @@ const observer = new MutationObserver(mutations => {
 })
 
 function needsToBeBlacklisted(src, type) {
+  if (!src) return !1;
   let result = 0;
   blocked.forEach((url) => {
     result += src.includes(url);
   });
+  checked.push([src, type, result]);
   return result;
 }
 
