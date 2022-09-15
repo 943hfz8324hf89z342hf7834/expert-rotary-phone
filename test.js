@@ -2,9 +2,9 @@
 // @name         testscript
 // @namespace    testscript
 // @version      1
-// @match        https://google.com/*
+// @match        https://github.com/*
 // @run-at       document-start
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
-alert('working');
+setTimeout(() => {alert('working')}, 1000);
