@@ -18,11 +18,11 @@ const blocked = [
 const checked = [];
 
 //i just want to know where all these errors i'm getting are coming from ;-;
-const realError = console.error;
+/*const realError = console.error;
 console.error = function(...args) {
   console.log('tried to call error with args: ', args, ' caller: ', console.error.caller);
   return realError.call(...args);
-};
+};*/
 
 const observer = new MutationObserver(mutations => {
     mutations.forEach(({ addedNodes }) => {
