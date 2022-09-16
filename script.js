@@ -120,5 +120,4 @@ observer.observe(document.documentElement, {
 // Goes through all scripts present at document start
 scriptsAtStart.forEach(testScript(script));
 
-setTimeout(() =>{
-window.console.log(checked)}, 1000);
+console.log(checked);
