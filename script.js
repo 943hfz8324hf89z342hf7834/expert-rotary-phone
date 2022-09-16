@@ -21,6 +21,7 @@ const observer = new MutationObserver(mutations => {
             if(node.nodeType === 1 && node.tagName === 'SCRIPT') {
                 const src = node.src || '';
                 const type = node.type;
+                console.log('script added: ', [node, src, type]);
                 // If the src is inside the blacklist
                 if(needsToBeBlacklisted(src, type)) {
                     console.log('Blocked script from source ', src, ', scripts checked so far: ', checked);
@@ -46,14 +47,15 @@ function needsToBeBlacklisted(src, type) {
 const createElementBackup = document.createElement
 document.createElement = function(...args) {
     // If this is not a script tag, bypass
-    if(args[0].toLowerCase() !== 'script')
+    if(args[0].toLowerCase() !== 'script') {
         // Binding to document is essential
-        return createElementBackup.bind(document)(...args)
+        return createElementBackup.bind(document)(...args) }
 
     const scriptElt = createElementBackup.bind(document)(...args)
     
     // Backup the original setAttribute function
     const originalSetAttribute = scriptElt.setAttribute.bind(scriptElt)
+    console.log("createElement: ", [scriptElt, args]);
 
     // Define getters / setters to ensure that the script type is properly set
     Object.defineProperties(scriptElt, {
@@ -93,15 +95,11 @@ document.createElement = function(...args) {
   return scriptElt
 }
 
-try {
-  eruda.init()
-} catch (e) {console.error(e)};
-
 // Starts the monitoring
 observer.observe(document.documentElement, {
+    console.log("monitoring started ", [document.documentElement]);
     childList: true,
     subtree: true
 })
 
 setTimeout(() =>{console.log(checked)}, 1000);
-console.log("test");
