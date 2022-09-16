@@ -6,7 +6,7 @@
 // @run-at       document-start
 // ==/UserScript==
 
-console.log('working ',[document, document.scripts];
+console.log('working ',[document, document.scripts]);
 
 const blocked = [
   'rndskittytor.com', 
