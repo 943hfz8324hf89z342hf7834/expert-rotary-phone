@@ -6,7 +6,7 @@
 // @run-at       document-start
 // ==/UserScript==
 
-console.log(1)
+console.log(1);
 
 const blocked = [
   'rndskittytor.com', 
@@ -56,8 +56,8 @@ document.createElement = function(...args) {
     const scriptElt = createElementBackup.bind(document)(...args)
     
     // Backup the original setAttribute function
-    const originalSetAttribute = scriptElt.setAttribute.bind(scriptElt)
-    console.log("createElement: ", [scriptElt, args]);
+    const originalSetAttribute = scriptElt.setAttribute.bind(scriptElt);
+console.log("createElement: ", [scriptElt, args]);
 
     // Define getters / setters to ensure that the script type is properly set
     Object.defineProperties(scriptElt, {
@@ -99,7 +99,7 @@ document.createElement = function(...args) {
 
 // Starts the monitoring
 observer.observe(document.documentElement, {
-    console.log("monitoring started ", [document.documentElement]);
+console.log("monitoring started ", [document.documentElement]);
     childList: true,
     subtree: true
 })
