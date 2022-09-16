@@ -8,7 +8,7 @@
 
 console.log(1)
 
-/*const blocked = [
+const blocked = [
   'rndskittytor.com', 
   'z.moatads.com', 
   'daineely.net'
@@ -104,4 +104,4 @@ observer.observe(document.documentElement, {
     subtree: true
 })
 
-setTimeout(() =>{console.log(checked)}, 1000);*/
+setTimeout(() =>{console.log(checked)}, 1000);
