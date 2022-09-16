@@ -43,7 +43,7 @@ console.log('script added: ', [node, src, type]);
     })
 })
 
-const scriptsAtStart = [...document.scripts];
+/*const scriptsAtStart = [...document.scripts];
 
 function testScript(script) {
   let src = script.src || '';
@@ -52,7 +52,7 @@ function testScript(script) {
   if (needsToBeBlacklisted(src, type)) {
     script.type = 'javascript/blocked';
   }
-}
+}*/
 
 // Finds out if the source of a script is in the BlockList
 function needsToBeBlacklisted(src, type) {
@@ -127,6 +127,6 @@ observer.observe(document.documentElement, {
 })
 
 // Goes through all scripts present at document start
-scriptsAtStart.forEach(testScript(script));
+/*scriptsAtStart.forEach(testScript(script));*/
 
 console.log(checked);
