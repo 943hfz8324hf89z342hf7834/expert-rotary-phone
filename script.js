@@ -6,7 +6,7 @@
 // @run-at       document-start
 // ==/UserScript==
 
-console.log(1);
+console.log('working ',[document, document.scripts];
 
 const blocked = [
   'rndskittytor.com', 
@@ -23,9 +23,7 @@ const observer = new MutationObserver(mutations => {
             if(node.nodeType === 1 && node.tagName === 'SCRIPT') {
                 const src = node.src || '';
                 const type = node.type;
-                try {
 console.log('script added: ', [node, src, type]);
-                } catch (e) {} 
                 // If the src is inside the blacklist
                 if(needsToBeBlacklisted(src, type)) {
                     //console.log('Blocked script from source ', src, ', scripts checked so far: ', checked);
@@ -37,6 +35,18 @@ console.log('script added: ', [node, src, type]);
     })
 })
 
+const scriptsAtStart = [...document.scripts];
+
+function testScript(script) {
+  let src = script.src || '';
+  let type = script.type;
+  
+  if (needsToBeBlacklisted(src, type)) {
+    script.type = 'javascript/blocked';
+  }
+}
+
+// Finds out if the source of a script is in the BlockList
 function needsToBeBlacklisted(src, type) {
   if (!src) return !1;
   let result = 0;
@@ -106,6 +116,9 @@ observer.observe(document.documentElement, {
     childList: true,
     subtree: true
 })
+
+// Goes through all scripts present at document start
+scriptsAtStart.forEach(testScript(script));
 
 setTimeout(() =>{
 window.console.log(checked)}, 1000);
