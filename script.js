@@ -104,3 +104,4 @@ observer.observe(document.documentElement, {
 })
 
 setTimeout(() =>{console.log(checked)}, 1000);
+console.log("test");
