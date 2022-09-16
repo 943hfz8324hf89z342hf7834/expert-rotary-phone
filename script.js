@@ -6,6 +6,8 @@
 // @run-at       document-start
 // ==/UserScript==
 
+console.log(1)
+
 const blocked = [
   'rndskittytor.com', 
   'z.moatads.com', 
