@@ -23,10 +23,12 @@ const observer = new MutationObserver(mutations => {
             if(node.nodeType === 1 && node.tagName === 'SCRIPT') {
                 const src = node.src || '';
                 const type = node.type;
-window.console.log('script added: ', [node, src, type]);
+                try {
+console.log('script added: ', [node, src, type]);
+                } catch (e) {} 
                 // If the src is inside the blacklist
                 if(needsToBeBlacklisted(src, type)) {
-                    console.log('Blocked script from source ', src, ', scripts checked so far: ', checked);
+                    //console.log('Blocked script from source ', src, ', scripts checked so far: ', checked);
                     node.type = 'javascript/blocked';
                     //node.parentElement.removeChild(node)
                 }
@@ -43,7 +45,7 @@ function needsToBeBlacklisted(src, type) {
   });
   checked.push([src, type, result]);
   if (result) {
-window.console.log('Blocked script from source ', src, ', scripts checked so far: ', checked)};
+console.log('Blocked script from source ', src, ', scripts checked so far: ', checked)};
   return result;
 }
 
@@ -55,10 +57,11 @@ document.createElement = function(...args) {
         return createElementBackup.bind(document)(...args) }
 
     const scriptElt = createElementBackup.bind(document)(...args)
+   
+console.log('Create Element: ', [scriptElt, args]);
     
     // Backup the original setAttribute function
     const originalSetAttribute = scriptElt.setAttribute.bind(scriptElt);
-window.console.log("createElement: ", [scriptElt, args]);
 
     // Define getters / setters to ensure that the script type is properly set
     Object.defineProperties(scriptElt, {
@@ -94,13 +97,12 @@ window.console.log("createElement: ", [scriptElt, args]);
      else
           HTMLScriptElement.protytope.setAttribute.call(scriptElt, name, value)
   }
-
+                           
   return scriptElt
 }
 
 // Starts the monitoring
 observer.observe(document.documentElement, {
-window.console.log("monitoring started ", [document.documentElement]);
     childList: true,
     subtree: true
 })
