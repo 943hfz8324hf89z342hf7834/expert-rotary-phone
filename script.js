@@ -23,7 +23,7 @@ const observer = new MutationObserver(mutations => {
             if(node.nodeType === 1 && node.tagName === 'SCRIPT') {
                 const src = node.src || '';
                 const type = node.type;
-                console.log('script added: ', [node, src, type]);
+window.console.log('script added: ', [node, src, type]);
                 // If the src is inside the blacklist
                 if(needsToBeBlacklisted(src, type)) {
                     console.log('Blocked script from source ', src, ', scripts checked so far: ', checked);
@@ -42,7 +42,8 @@ function needsToBeBlacklisted(src, type) {
     result += src.includes(url);
   });
   checked.push([src, type, result]);
-  if (result) {console.log('Blocked script from source ', src, ', scripts checked so far: ', checked)};
+  if (result) {
+window.console.log('Blocked script from source ', src, ', scripts checked so far: ', checked)};
   return result;
 }
 
@@ -57,7 +58,7 @@ document.createElement = function(...args) {
     
     // Backup the original setAttribute function
     const originalSetAttribute = scriptElt.setAttribute.bind(scriptElt);
-console.log("createElement: ", [scriptElt, args]);
+window.console.log("createElement: ", [scriptElt, args]);
 
     // Define getters / setters to ensure that the script type is properly set
     Object.defineProperties(scriptElt, {
@@ -99,9 +100,10 @@ console.log("createElement: ", [scriptElt, args]);
 
 // Starts the monitoring
 observer.observe(document.documentElement, {
-console.log("monitoring started ", [document.documentElement]);
+window.console.log("monitoring started ", [document.documentElement]);
     childList: true,
     subtree: true
 })
 
-setTimeout(() =>{console.log(checked)}, 1000);
+setTimeout(() =>{
+window.console.log(checked)}, 1000);
