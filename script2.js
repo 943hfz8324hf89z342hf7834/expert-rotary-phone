@@ -2,7 +2,7 @@
 // @name         script2
 // @namespace    script2
 // @version      2
-// @match        https://sflix.to/*
+// @match        https://js.do/*/360896
 // @run-at       document-start
 // ==/UserScript==
 
