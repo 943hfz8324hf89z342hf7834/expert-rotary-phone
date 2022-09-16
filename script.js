@@ -11,10 +11,18 @@ console.log('working ',[document, document.scripts]);
 const blocked = [
   'rndskittytor.com', 
   'z.moatads.com', 
-  'daineely.net'
+  'daineely.net',
+  'caimoasy.net'
   ];
   
 const checked = [];
+
+//i just want to know where all these errors i'm getting are coming from ;-;
+const realError = console.error;
+console.error = function(...args) {
+  console.log('tried to call error with args: ', args, ' caller: ', console.error.caller);
+  return realError.call(...args);
+};
 
 const observer = new MutationObserver(mutations => {
     mutations.forEach(({ addedNodes }) => {
@@ -54,6 +62,7 @@ function needsToBeBlacklisted(src, type) {
     result += src.includes(url);
   });
   checked.push([src, type, result]);
+console.warn('checked script: ', src, type, result);
   if (result) {
 console.log('Blocked script from source ', src, ', scripts checked so far: ', checked)};
   return result;
