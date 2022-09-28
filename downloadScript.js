@@ -9,7 +9,7 @@
 window.clickListener = document.addEventListener('click', (e) => {
   if (e.toElement.children.length > 0 && e.toElement.outerHTML.includes('share')) {
     switch (e.toElement.tagName) {
-      case 'I'
+      case 'I':
       case 'A':
       case 'SPAN':
         document.querySelector('#share-input').value = flashvars.video_url;
