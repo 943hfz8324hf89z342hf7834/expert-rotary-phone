@@ -8,13 +8,19 @@
 
 window.clickListener = document.addEventListener('click', (e) => {
   if (e.toElement.children.length > 0 && e.toElement.outerHTML.includes('share')) {
-    document.querySelector('#share-input').value = flashvars.video_url;
+    switch (e.toElement.tagName) {
+      case 'I'
+      case 'A':
+      case 'SPAN':
+        document.querySelector('#share-input').value = flashvars.video_url;
     
-    var download = document.createElement('a');
-    document.body.appendChild(download);
-    download.href = flashvars.video_url;
-    download.download = '';
-    download.click();
-    document.body.removeChild(download);
+        var download = document.createElement('a');
+        document.body.appendChild(download);
+        download.href = flashvars.video_url;
+        download.download = '';
+        download.click();
+        document.body.removeChild(download);
+        break;
+    }
   }
 });
