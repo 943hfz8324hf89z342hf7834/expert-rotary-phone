@@ -3,7 +3,7 @@
 // @namespace    sign in
 // @version      1
 // @match        https://e621.net/*
-// @run-at       document-start
+// @run-at       document-end
 // ==/UserScript==
 
 let signedInCheck, signedIn;
