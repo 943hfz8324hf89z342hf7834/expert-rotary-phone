@@ -48,10 +48,14 @@ document.addEventListener('click', (e) => {
     }
 
     // go through all elements involved in click to see if any of them are links
-    e.path.forEach((v, i) => {
+    /*e.path.forEach((v, i) => {
       if (v.localName == 'a') {
          v.href = getNewUrl(v.href);
-      }
+      }*/
+    if (e.target.localName == 'a') {
+        e.target.href = getNewUrl(e.target.href);
+    }
+    console.log('click event: ', e);
   })
 })
 
