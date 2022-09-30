@@ -16,6 +16,7 @@ let path = window.location.pathname
 window.onbeforeunload = (e) => {
   if (path == '/session/new') return;
   window.localStorage.setItem('lastPage', window.location.href.replace(window.location.origin, ''));
+  alert(window.localStorage.getItem('lastPage'));
 }
 
 // remember when user willingly signs out
@@ -45,6 +46,7 @@ if (path == '/session/new') {
     let urlInput = document.querySelector('#url')
       , newElement = document.createElement('div');
 
+    console.log(window.localStorage.getItem('lastPage'), lastPage);
     if (lastPage == 'session/new' || lastPage == '/') {
       lastPage = '/posts';
     };
