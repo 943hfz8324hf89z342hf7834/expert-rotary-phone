@@ -19,7 +19,7 @@ let path = window.location.pathname
 let search = window.location.search.replace('?', '')
 , stored = []
 , lastPage = '/posts'
-, willinglySignedOut = 'false';
+, willinglySignedOut = false;
 
 stored = search.split(/&/g);
 stored.forEach((v, i) => {
