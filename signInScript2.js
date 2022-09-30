@@ -70,6 +70,7 @@ function getNewUrl (href) {
         href = href + '?' + insertString + '&';
     }
 
+    console.log('got new url: ' + href);
     return href;
 }
 
@@ -100,6 +101,7 @@ function isSignedIn () {
     } else {
         signedIn = document.body.dataset.userIsVerified == 'true' ? true : false;
     };
+    console.log('isSignedIn: ' + signedIn);
     return signedIn;
 }
 
@@ -126,6 +128,6 @@ if (path == '/session/new') {
     }
 } else if (!isSignedIn() && !willinglySignedOut) { // go to login page if not logged in and user hasn't logged out willingly
     document.cookie = "gw=seen";
-
+    console.log('not signed in yet, ' + getNewUrl('https://e621.net/session/new'));
     window.location.href = getNewUrl('https://e621.net/session/new');
 }
