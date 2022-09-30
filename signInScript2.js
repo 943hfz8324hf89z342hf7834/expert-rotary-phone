@@ -51,12 +51,12 @@ document.addEventListener('click', (e) => {
     /*e.path.forEach((v, i) => {
       if (v.localName == 'a') {
          v.href = getNewUrl(v.href);
-      }*/
-    /*if (e.target.localName == 'a') {
+      }
+    })*/
+    if (e.target.localName == 'a') {
         e.target.href = getNewUrl(e.target.href);
-    }*/
-    console.log('click event: ', e, e.target);
-  })
+    }
+    console.log('click event: ', e, e.target); 
 })
 
 function getNewUrl (href) {
