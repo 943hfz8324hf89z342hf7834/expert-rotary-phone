@@ -46,7 +46,7 @@ if (path == '/session/new') {
     let urlInput = document.querySelector('#url')
       , newElement = document.createElement('div');
 
-    console.log(window.localStorage.getItem('lastPage'), lastPage);
+    console.log(window.localStorage.getItem('lastPage'), lastPage, window.localStorage.getItem('mode'), window.localStorage, window.localStorage.length);
     if (lastPage == 'session/new' || lastPage == '/') {
       lastPage = '/posts';
     };
