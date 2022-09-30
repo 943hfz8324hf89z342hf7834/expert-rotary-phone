@@ -4,6 +4,7 @@
 // @version      2
 // @match        https://e621.net/*
 // @run-at       document-end
+// @grant        unsafeWindow
 // ==/UserScript==
 
 let path = window.location.pathname
@@ -46,7 +47,8 @@ if (path == '/session/new') {
     let urlInput = document.querySelector('#url')
       , newElement = document.createElement('div');
 
-    console.log(window.localStorage.getItem('lastPage'), lastPage, window.localStorage.getItem('mode'), window.localStorage, window.localStorage.length);
+    unsafeWindow.localStorage.setItem('test', 'a');
+    console.log(window.localStorage.getItem('lastPage'), lastPage, window.localStorage.getItem('mode'), unsafeWindow.localStorage.getItem('test'), window.localStorage, window.localStorage.length);
     if (lastPage == 'session/new' || lastPage == '/') {
       lastPage = '/posts';
     };
