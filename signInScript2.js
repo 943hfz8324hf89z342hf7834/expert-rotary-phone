@@ -52,10 +52,10 @@ document.addEventListener('click', (e) => {
       if (v.localName == 'a') {
          v.href = getNewUrl(v.href);
       }*/
-    if (e.target.localName == 'a') {
+    /*if (e.target.localName == 'a') {
         e.target.href = getNewUrl(e.target.href);
-    }
-    console.log('click event: ', e);
+    }*/
+    console.log('click event: ', e, e.target);
   })
 })
 
