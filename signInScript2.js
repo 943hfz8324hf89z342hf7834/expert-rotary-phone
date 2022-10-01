@@ -33,7 +33,7 @@ stored.forEach((v, i) => {
         case 'willinglySignedOut':
             willinglySignedOut = entry[1] == 'true' ? true : false;
             break;
-        case 'url'
+        case 'url':
             lastPage = entry[1];
             break;
     }
