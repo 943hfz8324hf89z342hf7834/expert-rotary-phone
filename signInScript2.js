@@ -64,13 +64,13 @@ document.addEventListener('click', (e) => {
     let list = [];
     list[0] = e.target;
     
-    for (let i = 1; i < 100 && list[i - 1] != window.documentElement && list[i - 1] != null &&; i++) {
+    for (let i = 1; i < 100 && list[i - 1] != window.documentElement && list[i - 1] != null; i++) {
       list[i] = list[i - 1].parentElement;
       if (list[i - 1].tagName.toLowerCase() == 'a') {
         let anchorElem = list[i - 1];
         i = 101;
         anchorElem.href = getNewUrl(anchorElem.href);
-        console.log('clicked link: \n', anchorElem);
+        console.log('clicked link: \n', anchorElem, '\n', anchorElem.href);
       }
     }
     //console.log('click event: ', e, e.target); 
