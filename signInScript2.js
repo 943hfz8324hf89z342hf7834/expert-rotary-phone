@@ -69,8 +69,10 @@ document.addEventListener('click', (e) => {
       if (list[i - 1].tagName.toLowerCase() == 'a') {
         let anchorElem = list[i - 1];
         i = 101;
-        anchorElem.href = getNewUrl(anchorElem.href);
-        console.log('clicked link: \n', anchorElem, '\n', anchorElem.href);
+        if (anchorElem.href) {
+          anchorElem.href = getNewUrl(anchorElem.href);
+          console.log('clicked link: \n', anchorElem, '\n', anchorElem.href);
+        }
       }
     }
     //console.log('click event: ', e, e.target); 
