@@ -33,12 +33,15 @@ stored.forEach((v, i) => {
         case 'willinglySignedOut':
             willinglySignedOut = entry[1] == 'true' ? true : false;
             break;
+        case 'url'
+            lastPage = entry[1];
+            break;
     }
 })
 
 console.log(stored);
 console.log(lastPage, willinglySignedOut);
-lastPage = lastPage.replaceAll('%26', '&');
+lastPage = unescape(unescape(lastPage));
 
 // store current path in url
 document.addEventListener('click', (e) => {
