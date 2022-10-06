@@ -90,7 +90,7 @@ function getNewUrl (href) {
         //let oldSearch = oldHref.substring(oldHref.indexOf('?') + 1, oldHref.length)
         href = href.replace('?', '?' + insertString + '&');
     } else {
-        href = href + '?' + insertString + '&';
+        href = href + '?' + insertString;
     }
 
     console.log('got new url: ' + href);
