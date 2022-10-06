@@ -20,6 +20,7 @@ let search = window.location.search.replace('?', '')
   , stored = [];
 
 stored = search.split(/&/g);
+
 stored.forEach((v, i) => {
     if (v.indexOf('=') < 0) {
       stored[i] = v;
@@ -78,7 +79,7 @@ function getNewUrl (href) {
     lastPage = window.location.href.replace(window.location.origin, '');
 
     let originalString = `lastPage=${stored?.lastPage}&willinglySignedOut=${willinglySignedOut}`
-      , lastPageString = lastPage.replace(originalString, '').replace(/\?&/g, '?')
+      , lastPageString = lastPage.replace(originalString, '').replace('?', '').replace('&', '?') // '/posts?' = '/posts', '/posts?&somethingelse=1&anotherthing = '/posts?somethingelse=1&anotherthing'
       , insertString = `lastPage=${lastPageString.replace(/&/g, '%26')}&willinglySignedOut=${willinglySignedOut}`;
 
     if (href.includes('?')) {
