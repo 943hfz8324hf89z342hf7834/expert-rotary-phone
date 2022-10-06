@@ -72,7 +72,6 @@ document.addEventListener('click', (e) => {
       }
     }
 })
-}
 
 // lastPage = currentPage
 function getNewUrl (href) {
