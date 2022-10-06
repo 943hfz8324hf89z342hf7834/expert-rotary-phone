@@ -14,31 +14,35 @@ let path = window.location.pathname
 
 // this is an absolute mess but it works and i'm tired 
 // (i wrote this because localStorage didn't work but that was just because i used @run-at: document-start instead of @run-at: document-end. i put so much work into this but i could've fixed this so easily if i just knew what the issue was and i'm really annoyed now. i guess i'll just use this as a fallback)
-if (useFallback) {
+//if (useFallback) {
 // lastPage and willinglySignedOut stored in url
 let search = window.location.search.replace('?', '')
   , stored = [];
 
 stored = search.split(/&/g);
+if (stored.length > 0)
 stored.forEach((v, i) => {
+    if (v.indexOf('=') < 0) {
+      stored[i] = v;
+      return;
+    }
+  
     let entry = [v.substring(0, v.indexOf('=')), v.substring(v.indexOf('=') + 1, v.length)];
     stored[i] = entry;
     stored[entry[0]] = entry[1] || null;
     switch (entry[0]) {
         case 'lastPage':
-            lastPage = entry[1];
+            lastPage = unescape(unescape(entry[1]));
             break;
         case 'willinglySignedOut':
             willinglySignedOut = entry[1] == 'true' ? true : false;
             break;
         case 'url':
-            lastPage = entry[1];
+            lastPage = unescape(unescape(entry[1]));
             break;
     }
 })
-
-lastPage = unescape(unescape(lastPage));
-}
+//}
 
 window.localStorage?.setItem('lastPage', lastPage);
 window.localStorage?.setItem('willinglySignedOut', willinglySignedOut);
@@ -63,6 +67,7 @@ document.addEventListener('click', (e) => {
         i = 101;
         if (anchorElem.href) {
           anchorElem.href = getNewUrl(anchorElem.href);
+          window.localStorage?.setItem('lastPage', lastPageString);
           console.log('clicked link: \n', anchorElem, '\n', anchorElem.href);
         }
       }
@@ -78,9 +83,7 @@ function getNewUrl (href) {
       , lastPageString = lastPage.replace(originalString, '').replace(/\?&/g, '?')
       , insertString = `lastPage=${lastPageString.replace(/&/g, '%26')}&willinglySignedOut=${willinglySignedOut}`;
 
-    if (!useFallback) {
-        href = href;
-    } else if (href.includes('?')) {
+    if (href.includes('?')) {
         href = href.replace('?', '?' + insertString + '&');
     } else {
         href = href + '?' + insertString;
