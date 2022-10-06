@@ -82,7 +82,7 @@ function getNewUrl (href) {
     lastPage = window.location.href.replace(window.location.origin, '');
 
     let originalString = `lastPage=${stored.lastPage}&willinglySignedOut=${stored.willinglySignedOut}`
-        , insertString = `lastPage=${lastPage.replace(originalString, '').replace(/&/gi, '%26')}&willinglySignedOut=${willinglySignedOut}`;
+        , insertString = `lastPage=${lastPage.replace(originalString, '').replace(/\?&/g, '?').replace(/&/g, '%26')}&willinglySignedOut=${willinglySignedOut}`;
     //, oldHref = v.href
     //, insertSearch = '?' + insertString;
 
