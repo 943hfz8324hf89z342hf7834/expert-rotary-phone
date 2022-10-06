@@ -102,8 +102,10 @@ function getNewUrl (href) {
 
 // store the last visited page in local storage so you can easily return after logging in
 window.onbeforeunload = (e) => {
-    if (path == '/session/new') return;
+    if (path == '/session/new') {return};
+    e.preventDefault();
     window.localStorage.setItem('lastPage', window.location.href.replace(window.location.origin, ''));
+    window.alert('test', window.localStorage.getItem('lastPage'));
 }
 
 /*
