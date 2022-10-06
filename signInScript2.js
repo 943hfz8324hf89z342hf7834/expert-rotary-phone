@@ -3,23 +3,27 @@
 // @namespace    sign in
 // @version      2
 // @match        https://e621.net/*
-// @run-at       document-end
+// @run-at       document-start
 // ==/UserScript==
 
 let path = window.location.pathname
-, href = window.location.href
-//, lastPage = window.localStorage.getItem('lastPage') || '/posts'
-//, willinglySignedOut = window.localStorage.getItem('willinglySignedOut') == 'true' ? true : false;
-;
+  , href = window.location.href;
+
+if (path == '/session/new') {
+  document.cookie = "gw=seen";
+}
 
 
+function main () {
+let lastPage = window.localStorage?.getItem('lastPage') || '/posts'
+  , willinglySignedOut = window.localStorage?.getItem('willinglySignedOut') == 'true' ? true : false;
 
 // this is an absolute mess but it works and i'm tired
 // lastPage and willinglySignedOut stored in url
 let search = window.location.search.replace('?', '')
-, stored = []
-, lastPage = '/posts'
-, willinglySignedOut = false;
+  , stored = [];
+//, lastPage = '/posts'
+//, willinglySignedOut = false;
 
 stored = search.split(/&/g);
 stored.forEach((v, i) => {
@@ -154,3 +158,6 @@ if (path == '/session/new') {
     console.log('not signed in yet, ' + getNewUrl('https://e621.net/session/new'));
     window.location.href = getNewUrl('https://e621.net/session/new');
 }
+}
+
+document.addEventListener('DOMContentLoaded', main);
