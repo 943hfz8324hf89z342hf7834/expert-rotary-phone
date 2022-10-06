@@ -14,7 +14,7 @@ if (path == '/session/new') {
 }
 
 
-function main () {
+window.onload = function main () {
 let lastPage = window.localStorage?.getItem('lastPage') || '/posts'
   , willinglySignedOut = window.localStorage?.getItem('willinglySignedOut') == 'true' ? true : false;
 
@@ -160,4 +160,4 @@ if (path == '/session/new') {
 }
 }
 
-document.addEventListener('DOMContentLoaded', main);
+//document.addEventListener('DOMContentLoaded', main);
