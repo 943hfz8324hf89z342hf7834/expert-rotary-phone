@@ -3,7 +3,7 @@
 // @namespace    sign in
 // @version      2
 // @match        https://e621.net/*
-// @run-at       document-start
+// @run-at       document-end
 // ==/UserScript==
 
 let path = window.location.pathname
@@ -13,8 +13,6 @@ if (path == '/session/new') {
   document.cookie = "gw=seen";
 }
 
-
-window.onload = function main () {
 let lastPage = window.localStorage?.getItem('lastPage') || '/posts'
   , willinglySignedOut = window.localStorage?.getItem('willinglySignedOut') == 'true' ? true : false;
 
@@ -158,6 +156,3 @@ if (path == '/session/new') {
     console.log('not signed in yet, ' + getNewUrl('https://e621.net/session/new'));
     window.location.href = getNewUrl('https://e621.net/session/new');
 }
-}
-
-//document.addEventListener('DOMContentLoaded', main);
