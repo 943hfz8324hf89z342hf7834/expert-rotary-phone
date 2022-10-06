@@ -20,7 +20,6 @@ let search = window.location.search.replace('?', '')
   , stored = [];
 
 stored = search.split(/&/g);
-if (stored.length > 0)
 stored.forEach((v, i) => {
     if (v.indexOf('=') < 0) {
       stored[i] = v;
