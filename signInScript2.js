@@ -7,21 +7,17 @@
 // ==/UserScript==
 
 let path = window.location.pathname
-  , href = window.location.href;
+  , href = window.location.href
+  , lastPage = window.localStorage?.getItem('lastPage') || '/posts'
+  , willinglySignedOut = window.localStorage?.getItem('willinglySignedOut') == 'true' ? true : false
+  , useFallback = !window.localStorage || window.localStorage.length < 2;
 
-if (path == '/session/new') {
-  document.cookie = "gw=seen";
-}
-
-let lastPage = window.localStorage?.getItem('lastPage') || '/posts'
-  , willinglySignedOut = window.localStorage?.getItem('willinglySignedOut') == 'true' ? true : false;
-
-// this is an absolute mess but it works and i'm tired
+// this is an absolute mess but it works and i'm tired 
+// (i wrote this because localStorage didn't work but that was just because i used @run-at: document-start instead of @run-at: document-end. i put so much work into this but i could've fixed this so easily if i just knew what the issue was and i'm really annoyed now. i guess i'll just use this as a fallback)
+if (useFallback) {
 // lastPage and willinglySignedOut stored in url
 let search = window.location.search.replace('?', '')
   , stored = [];
-//, lastPage = '/posts'
-//, willinglySignedOut = false;
 
 stored = search.split(/&/g);
 stored.forEach((v, i) => {
@@ -41,27 +37,20 @@ stored.forEach((v, i) => {
     }
 })
 
-console.log(stored);
-console.log(lastPage, willinglySignedOut);
 lastPage = unescape(unescape(lastPage));
+}
+
 window.localStorage?.setItem('lastPage', lastPage);
+window.localStorage?.setItem('willinglySignedOut', willinglySignedOut);
+console.log([lastPage, willinglySignedOut]);
 
 // store current path in url
 document.addEventListener('click', (e) => {
     // remember when user willingly signs out
     if (e.target.innerText == 'Sign out') {
-        willinglySignedOut = true;
+      willinglySignedOut = true;
+      window.localStorage?.setItem('willinglySignedOut', willinglySignedOut);
     }
-
-    // go through all elements involved in click to see if any of them are links
-    /*e.path.forEach((v, i) => {
-      if (v.localName == 'a') {
-         v.href = getNewUrl(v.href);
-      }
-    })
-    if (e.target.localName == 'a') {
-        e.target.href = getNewUrl(e.target.href);
-    }*/
     
     // go through all elements involved in click to see if any of them are links
     let list = [];
@@ -78,43 +67,36 @@ document.addEventListener('click', (e) => {
         }
       }
     }
-    //console.log('click event: ', e, e.target); 
 })
+}
 
+// lastPage = currentPage
 function getNewUrl (href) {
     lastPage = window.location.href.replace(window.location.origin, '');
 
-    let originalString = `lastPage=${stored.lastPage}&willinglySignedOut=${stored.willinglySignedOut}`
-        , insertString = `lastPage=${lastPage.replace(originalString, '').replace(/\?&/g, '?').replace(/&/g, '%26')}&willinglySignedOut=${willinglySignedOut}`;
-    //, oldHref = v.href
-    //, insertSearch = '?' + insertString;
+    let originalString = `lastPage=${stored?.lastPage}&willinglySignedOut=${willinglySignedOut}`
+      , lastPageString = lastPage.replace(originalString, '').replace(/\?&/g, '?')
+      , insertString = `lastPage=${lastPageString.replace(/&/g, '%26')}&willinglySignedOut=${willinglySignedOut}`;
 
-    if (href.includes('?')) {
-        //let oldSearch = oldHref.substring(oldHref.indexOf('?') + 1, oldHref.length)
+    if (!useFallback) {
+        href = href;
+    } else if (href.includes('?')) {
         href = href.replace('?', '?' + insertString + '&');
     } else {
         href = href + '?' + insertString;
     }
-
-    console.log('got new url: ' + href);
+  
+    window.localStorage?.setItem('lastPage', lastPageString);
+  
     return href;
 }
 
-
 // store the last visited page in local storage so you can easily return after logging in
+// THIS DOESNT WORK
 window.onbeforeunload = (e) => {
     if (path == '/session/new') {return};
-    window.localStorage.setItem('lastPage', window.location.href.replace(window.location.origin, ''));
+    getNewUrl(window.location.origin);
 }
-
-/*
-// remember when user willingly signs out
-document.addEventListener('click', (e) => {
-    if (e.target.innerText == 'Sign out') {
-        window.localStorage.setItem('willinglySignedOut', 'true');
-    }
-})*/
-
 
 // check if user is signed in
 function isSignedIn () {
@@ -138,6 +120,7 @@ if (path == '/session/new') {
 
     if (lastPage.includes('/session/new') || lastPage == '/') {
         lastPage = '/posts';
+        window.localStorage?.setItem('lastPage', lastPage);
     };
 
     document.cookie = "gw=seen";
@@ -150,10 +133,10 @@ if (path == '/session/new') {
 </div>
 `;
     document.querySelector('.simple_form').onsubmit = (e) => {
-        window.localStorage.setItem('willinglySignedOut', 'false');
+        window.localStorage?.setItem('willinglySignedOut', 'false');
     }
 } else if (!isSignedIn() && !willinglySignedOut) { // go to login page if not logged in and user hasn't logged out willingly
     document.cookie = "gw=seen";
-    console.log('not signed in yet, ' + getNewUrl('https://e621.net/session/new'));
+    //console.log('not signed in yet, ' + getNewUrl('https://e621.net/session/new'));
     window.location.href = getNewUrl('https://e621.net/session/new');
 }
