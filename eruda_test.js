@@ -4,11 +4,13 @@
 // @match        https://freebee.fun/*
 // @run-at       document-start
 // ==/UserScript==
-(() => {
+function main () {
   let eruda = window.eruda;
   if (typeof window.eruda === 'undefined') {
     console.log('eruda is undefined');
+    //setTimeout(main, 20);
   } else {
+    console.log('eruda is defined')
     /*window.eruda.init = (args) => {
       console.log('working! arguments:');
       console.log(args);
@@ -57,9 +59,10 @@
 
     window.eruda.init = newInit;
   }
-})();
+})
 
-window.addEventListener("DOMContentLoaded", () => {
+main()
+
   window.messageListener = window.addEventListener("message", (event) => {
     if (event.source == window &&
       event.data &&
@@ -68,4 +71,28 @@ window.addEventListener("DOMContentLoaded", () => {
       console.log(event);
     }
   });
+
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(({ addedNodes }) => {
+        addedNodes.forEach(node => {
+            // For each added script tag
+            if(node.nodeType === 1 && node.tagName === 'SCRIPT') {
+                const src = node.src || '';
+                const type = node.type;
+                console.log('script added: ', [node, src, type]);
+                if (src.includes("eruda-check.js")) {
+                  console.log(window.eruda);
+                }
+                if (src.includes("eruda-load.js")) {
+                  console.log('added load.js');
+                  console.log(window.eruda)
+                }
+            }
+        })
+    })
+})
+
+observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
 })
