@@ -85,7 +85,33 @@ const observer = new MutationObserver(mutations => {
                 }
                 if (src.includes("eruda-load.js")) {
                   console.log('added load.js');
-                  console.log(window.eruda)
+                  node.text = `
+(() => {
+
+    if (typeof eruda === 'undefined') {
+        alert(\`Unable to load Web Inspector: \${location.hostname} has set its Content Security Policy to block all third-party scripts.\`);
+        return;
+    }
+
+    eruda.init({
+        //tool: ['elements', 'console', 'network', 'resources', 'sources']
+    });
+
+    eruda.add(erudaDom);
+    eruda.add(erudaTiming);
+    //eruda.get('settings').destroy();
+
+    let shadow = eruda._shadowRoot;
+    /*shadow.querySelector('.eruda-entry-btn').remove();
+    shadow.querySelectorAll('.eruda-nav-bar-item:nth-child(5), .eruda-nav-bar-item:nth-child(7), .eruda-nav-bar-item:nth-child(8)').forEach((item) => {
+        item.remove();
+    });*/
+
+    let navBar = shadow.querySelector('.eruda-nav-bar');
+    let navItems = navBar.querySelectorAll('.eruda-nav-bar-item');
+    navBar.insertBefore(navItems[navItems.length-1], navItems[0]);
+
+})();`
                 }
                 if (src.includes("eruda-toggle.js")) {
                   console.log('added toggle.js');
