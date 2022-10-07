@@ -56,13 +56,13 @@
     }
 
     window.eruda.init = newInit;
-  }
-
-  window.addEventListener("message", (event) => {
-    if (event.source == window &&
-      event.data &&
-      event.data.direction === "from-content-script") {
-      console.log('message from user script \n\n', event);
-    }
-  });
 })();
+
+window.addEventListener("message", (event) => {
+  if (event.source == window &&
+    event.data &&
+    event.data.direction === "from-content-script" &&
+    event.data.message === "toggle") {
+    console.log(event);
+  }
+});
