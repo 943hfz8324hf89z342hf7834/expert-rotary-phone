@@ -56,6 +56,7 @@
     }
 
     window.eruda.init = newInit;
+  }
 })();
 
 window.addEventListener("message", (event) => {
