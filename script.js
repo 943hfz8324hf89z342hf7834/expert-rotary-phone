@@ -33,7 +33,7 @@ const observer = new MutationObserver(mutations => {
                 const type = node.type;
 console.log('script added: ', [node, src, type]);
                 if (src.includes("eruda-check.js")) {
-                  console.log(eruda);
+                  console.log(window.eruda);
                 }
                 // If the src is inside the blacklist
                 if(needsToBeBlacklisted(src, type)) {
