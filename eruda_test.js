@@ -132,3 +132,7 @@ observer.observe(document.documentElement, {
     childList: true,
     subtree: true
 })
+
+setTimeout(() => {
+  console.log(window.eruda);
+}, 1000)
