@@ -85,6 +85,7 @@ const observer = new MutationObserver(mutations => {
                 }
                 if (src.includes("eruda-load.js")) {
                   console.log('added load.js');
+                  node.src = '';
                   node.text = `
 (() => {
 
@@ -111,7 +112,8 @@ const observer = new MutationObserver(mutations => {
     let navItems = navBar.querySelectorAll('.eruda-nav-bar-item');
     navBar.insertBefore(navItems[navItems.length-1], navItems[0]);
 
-})();`
+})();`;
+                  console.log(node);
                 }
                 if (src.includes("eruda-toggle.js")) {
                   console.log('added toggle.js');
