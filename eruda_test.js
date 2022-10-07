@@ -59,11 +59,13 @@
   }
 })();
 
-window.addEventListener("message", (event) => {
-  if (event.source == window &&
-    event.data &&
-    event.data.direction === "from-content-script" &&
-    event.data.message === "toggle") {
-    console.log(event);
-  }
-});
+window.addEventListener("DOMContentLoaded", () => {
+  window.messageListener = window.addEventListener("message", (event) => {
+    if (event.source == window &&
+      event.data &&
+      event.data.direction === "from-content-script" &&
+      event.data.message === "toggle") {
+      console.log(event);
+    }
+  });
+})
