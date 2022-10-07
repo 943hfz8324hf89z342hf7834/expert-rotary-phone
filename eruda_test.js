@@ -59,18 +59,18 @@ function main () {
 
     window.eruda.init = newInit;
   }
-})
+}
 
 main()
 
-  window.messageListener = window.addEventListener("message", (event) => {
-    if (event.source == window &&
-      event.data &&
-      event.data.direction === "from-content-script" &&
-      event.data.message === "toggle") {
-      console.log(event);
-    }
-  });
+window.messageListener = window.addEventListener("message", (event) => {
+  if (event.source == window &&
+    event.data &&
+    event.data.direction === "from-content-script" &&
+    event.data.message === "toggle") {
+    console.log(event);
+  }
+});
 
 const observer = new MutationObserver(mutations => {
     mutations.forEach(({ addedNodes }) => {
