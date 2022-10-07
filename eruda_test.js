@@ -87,6 +87,10 @@ const observer = new MutationObserver(mutations => {
                   console.log('added load.js');
                   console.log(window.eruda)
                 }
+                if (src.includes("eruda-toggle.js")) {
+                  console.log('added toggle.js');
+                  console.log(window.eruda)
+                }
             }
         })
     })
