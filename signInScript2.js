@@ -126,6 +126,7 @@ if (path == '/session/new') {
     };
 
     document.cookie = "gw=seen";
+    document.querySelector('.guest-warning')?.remove();
 
     urlInput.replaceWith(newElement);
     newElement.outerHTML = `
@@ -139,6 +140,7 @@ if (path == '/session/new') {
     }
 } else if (!isSignedIn() && !willinglySignedOut) { // go to login page if not logged in and user hasn't logged out willingly
     document.cookie = "gw=seen";
+    document.querySelector('.guest-warning')?.remove();
     //console.log('not signed in yet, ' + getNewUrl('https://e621.net/session/new'));
     window.location.href = getNewUrl('https://e621.net/session/new');
 }
