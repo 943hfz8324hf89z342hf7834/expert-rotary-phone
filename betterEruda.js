@@ -1,9 +1,33 @@
 // ==UserScript==
-// @name         test script
+// @name         Use version of eruda on github instead of the one available in the app store
 // @version      1
-// @match        https://freebee.fun/*
+// @match        *
 // @run-at       document-start
 // ==/UserScript==
+
+function reqListener() {
+  if (eruda?._devTools._isShow) {
+    eruda.hide();
+    setTimeout(() => {eruda.show()}, 100);
+  }
+
+  Function(this.responseText)();
+  eruda.init();
+  eruda.add(erudaDom);
+
+  let navItems = eruda._$el.find('.eruda-nav-bar-item');
+  navItems.first().before(
+    navItems[navItems.length - 2]
+  )
+
+  eruda._entryBtn.hide();
+}
+
+const req = new XMLHttpRequest();
+req.addEventListener("load", reqListener);
+req.open("GET", "https://cdn.jsdelivr.net/npm/eruda");
+req.send();
+
 /*function main () {
   let eruda = window.eruda;
   if (typeof window.eruda === 'undefined') {
@@ -136,10 +160,3 @@ observer.observe(document.documentElement, {
 setTimeout(() => {
   console.log(window.eruda);
 }, 1000)*/
-
-;(function () {
-    var src = '//cdn.jsdelivr.net/npm/eruda';
-    if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
-    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
-})();
