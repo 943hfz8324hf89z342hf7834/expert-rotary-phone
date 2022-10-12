@@ -2,7 +2,7 @@
 // @name         Use version of eruda on github instead of the one available in the app store
 // @version      1
 // @match        *
-// @run-at       document-start
+// @run-at       document-end
 // ==/UserScript==
 let eruda = {};
 
@@ -31,7 +31,7 @@ function reqListener() {
   eruda._entryBtn.hide()
 }
 
-window.addEventListener("message", (event) => {
+function messageListener (event) {
   if (event.source == window &&
     event.data &&
     event.data.direction === "from-content-script" &&
@@ -49,7 +49,8 @@ window.addEventListener("message", (event) => {
       eruda._devTools._isShow = !0;
       replaceEruda();
   }
-});
+}
+window.addEventListener("message", messageListener);
 
 /*function main () {
   let eruda = window.eruda;
