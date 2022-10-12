@@ -4,7 +4,8 @@
 // @match        *
 // @run-at       document-end
 // ==/UserScript==
-let eruda = {};
+let eruda = window.eruda || {};
+console.log(eruda);
 
 function replaceEruda () {
   const req = new XMLHttpRequest();
@@ -32,6 +33,7 @@ function reqListener() {
 }
 
 function messageListener (event) {
+  console.log(event);
   if (event.source == window &&
     event.data &&
     event.data.direction === "from-content-script" &&
