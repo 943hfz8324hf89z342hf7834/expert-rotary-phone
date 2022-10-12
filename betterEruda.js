@@ -5,6 +5,13 @@
 // @run-at       document-start
 // ==/UserScript==
 
+function replaceEruda () {
+  const req = new XMLHttpRequest();
+  req.addEventListener("load", reqListener);
+  req.open("GET", "https://cdn.jsdelivr.net/npm/eruda");
+  req.send();
+}
+
 function reqListener() {
   if (eruda?._devTools._isShow) {
     eruda.hide();
@@ -20,13 +27,19 @@ function reqListener() {
     navItems[navItems.length - 2]
   )
 
-  eruda._entryBtn.hide();
+  eruda._entryBtn.hide()
 }
 
-const req = new XMLHttpRequest();
-req.addEventListener("load", reqListener);
-req.open("GET", "https://cdn.jsdelivr.net/npm/eruda");
-req.send();
+window.addEventListener("message", (event) => {
+  if (event.source == window &&
+    event.data &&
+    event.data.direction === "from-content-script" &&
+    event.data.message === "toggle") {
+      console.log('eruda toggled');
+      eruda._devTools._isShow = !0;
+      replaceEruda();
+  }
+});
 
 /*function main () {
   let eruda = window.eruda;
