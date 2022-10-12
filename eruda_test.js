@@ -4,7 +4,7 @@
 // @match        https://freebee.fun/*
 // @run-at       document-start
 // ==/UserScript==
-function main () {
+/*function main () {
   let eruda = window.eruda;
   if (typeof window.eruda === 'undefined') {
     console.log('eruda is undefined');
@@ -14,7 +14,7 @@ function main () {
     /*window.eruda.init = (args) => {
       console.log('working! arguments:');
       console.log(args);
-    }*/
+    }
     const oldInit = eruda.init;
 
     // function to call instead of eruda.init
@@ -106,7 +106,7 @@ const observer = new MutationObserver(mutations => {
     /*shadow.querySelector('.eruda-entry-btn').remove();
     shadow.querySelectorAll('.eruda-nav-bar-item:nth-child(5), .eruda-nav-bar-item:nth-child(7), .eruda-nav-bar-item:nth-child(8)').forEach((item) => {
         item.remove();
-    });*/
+    });
 
     let navBar = shadow.querySelector('.eruda-nav-bar');
     let navItems = navBar.querySelectorAll('.eruda-nav-bar-item');
@@ -135,4 +135,11 @@ observer.observe(document.documentElement, {
 
 setTimeout(() => {
   console.log(window.eruda);
-}, 1000)
+}, 1000)*/
+
+;(function () {
+    var src = '//cdn.jsdelivr.net/npm/eruda';
+    if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
+    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
+})();
