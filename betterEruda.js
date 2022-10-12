@@ -4,6 +4,7 @@
 // @match        *
 // @run-at       document-start
 // ==/UserScript==
+let eruda = {};
 
 function replaceEruda () {
   const req = new XMLHttpRequest();
@@ -36,6 +37,15 @@ window.addEventListener("message", (event) => {
     event.data.direction === "from-content-script" &&
     event.data.message === "toggle") {
       console.log('eruda toggled');
+    
+      if (!eruda?._devTools) {
+        setTimeout(() => {
+          eruda._devTools._isShow = !0;
+          replaceEruda();
+        }, 100);
+        return;
+      }
+    
       eruda._devTools._isShow = !0;
       replaceEruda();
   }
