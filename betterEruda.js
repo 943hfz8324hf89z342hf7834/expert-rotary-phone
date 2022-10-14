@@ -7,14 +7,14 @@
 let eruda = window.eruda || {};
 console.log(eruda);
 
-function replaceEruda () {
+window.replaceEruda = function replaceEruda () {
   const req = new XMLHttpRequest();
   req.addEventListener("load", reqListener);
   req.open("GET", "https://cdn.jsdelivr.net/npm/eruda");
   req.send();
 }
 
-function reqListener() {
+window.reqListener = function reqListener() {
   if (eruda?._devTools._isShow) {
     eruda.hide();
     setTimeout(() => {eruda.show()}, 100);
@@ -32,7 +32,7 @@ function reqListener() {
   eruda._entryBtn.hide()
 }
 
-function messageListener (event) {
+window.messageListenerFunct = function messageListener (event) {
   console.log(event);
   if (event.source == window &&
     event.data &&
@@ -52,7 +52,7 @@ function messageListener (event) {
       replaceEruda();
   }
 }
-window.addEventListener("message", messageListener);
+window.messageListener = window.addEventListener("message", messageListener);
 
 /*function main () {
   let eruda = window.eruda;
