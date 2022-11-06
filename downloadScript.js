@@ -2,7 +2,7 @@
 // @name         uhhhh
 // @namespace    uhhhh
 // @version      1
-// @match        https://z*be1.com/*
+// @match        https://zootube1.com/*
 // @run-at       document-end
 // ==/UserScript==
 
