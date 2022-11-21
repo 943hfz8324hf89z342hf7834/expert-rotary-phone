@@ -78,17 +78,20 @@ document.addEventListener('click', (e) => {
 function getNewUrl (href) {
     lastPage = window.location.href.replace(window.location.origin, '');
 
-    let originalString = `lastPage=${stored?.lastPage}&willinglySignedOut=${willinglySignedOut}`
-      , lastPageString = lastPage.replace(originalString, '').replace('?', '').replace('&', '?') // '/posts?' = '/posts', '/posts?&somethingelse=1&anotherthing = '/posts?somethingelse=1&anotherthing'
-      , insertString = `lastPage=${lastPageString.replace(/&/g, '%26')}&willinglySignedOut=${willinglySignedOut}`;
-
+    let originalInsertString = `lastPage=${stored?.lastPage}&willinglySignedOut=${willinglySignedOut}`
+      , newLastPage = lastPage;
+    if (lastPage.includes(originalInsertString)) {
+       newLastPage = lastPage.replace(originalInsertString, '').replace('?', '').replace('&', '?') // '/posts?' = '/posts', '/posts?&somethingelse=1&anotherthing = '/posts?somethingelse=1&anotherthing'
+    }
+    let insertString = `lastPage=${newLastPage.replace(/&/g, '%26')}&willinglySignedOut=${willinglySignedOut}`;
+  
     if (href.includes('?')) {
         href = href.replace('?', '?' + insertString + '&');
     } else {
         href = href + '?' + insertString;
     }
   
-    window.localStorage?.setItem('lastPage', lastPageString);
+    window.localStorage?.setItem('lastPage', newLastPage);
   
     return href;
 }
@@ -96,7 +99,7 @@ function getNewUrl (href) {
 // store the last visited page in local storage so you can easily return after logging in
 // THIS DOESNT WORK
 window.onbeforeunload = (e) => {
-    if (path == '/session/new') {return};
+    if (path == '/session/new') return;
     getNewUrl(window.location.origin);
 }
 
