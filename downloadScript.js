@@ -2,16 +2,16 @@
 // @name         uhhhh
 // @namespace    uhhhh
 // @version      1
-// @match        https://z*e1.com/*
+// @match        https://zootube1.com/*
 // @run-at       document-end
 // ==/UserScript==
 
 window.clickListener = document.addEventListener('click', (e) => {
   if (e.toElement.children.length > 0 && e.toElement.outerHTML.includes('share')) {
-    switch (e.toElement.tagName) {
-      case 'I':
-      case 'A':
-      case 'SPAN':
+    switch (e.toElement.tagName.toLowerCase()) {
+      case 'i':
+      case 'a':
+      case 'span':
         document.querySelector('#share-input').value = flashvars.video_url;
     
         var download = document.createElement('a');
