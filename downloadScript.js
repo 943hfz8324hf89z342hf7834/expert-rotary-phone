@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         uhhhh
-// @namespace    uhhhh
+// @name         test
+// @namespace    test
 // @version      1
-// @match        https://zootube1.com/*
+// @match        https://z*e1.com/*
 // @run-at       document-end
 // ==/UserScript==
 
