@@ -42,14 +42,22 @@ window.messageListenerFunct = function messageListener (event) {
     
       if (!eruda?._devTools) {
         setTimeout(() => {
-          eruda._devTools._isShow = !0;
-          replaceEruda();
+          try {
+            eruda._devTools._isShow = !0;
+            replaceEruda();
+          } catch (e) {
+            console.error(e)
+          }
         }, 100);
         return;
       }
     
-      eruda._devTools._isShow = !0;
-      replaceEruda();
+      try {
+        eruda._devTools._isShow = !0;
+        replaceEruda();
+      } catch (e) {
+        console.error(e)
+      }
   }
 }
 window.messageListener = window.addEventListener("message", messageListenerFunct);
