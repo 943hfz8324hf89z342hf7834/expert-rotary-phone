@@ -7,54 +7,53 @@
 let eruda = window.eruda || {};
 console.log(eruda);
 
-window.replaceEruda = function replaceEruda () {
-  const req = new XMLHttpRequest();
-  req.addEventListener("load", reqListener);
-  req.open("GET", "https://cdn.jsdelivr.net/npm/eruda");
-  req.send();
-}
-
 window.reqListener = function reqListener() {
-  if (eruda?._devTools._isShow) {
-    eruda.hide();
-    setTimeout(() => {eruda.show()}, 100);
+  if (window.eruda?._devTools._isShow) {
+    window.eruda.hide();
+    window.setTimeout(() => {eruda.show()}, 100);
   }
 
   Function(this.responseText)();
-  eruda.init();
-  eruda.add(erudaDom);
+  window.eruda.init();
+  window.eruda.add(erudaDom);
 
-  let navItems = eruda._$el.find('.eruda-nav-bar-item');
+  let navItems = window.eruda._$el.find('.eruda-nav-bar-item');
   navItems.first().before(
     navItems[navItems.length - 2]
   )
 
-  eruda._entryBtn.hide()
+  window.eruda._entryBtn.hide()
+}
+
+window.replaceEruda = function replaceEruda () {
+  const req = new XMLHttpRequest();
+  req.addEventListener("load", window.reqListener);
+  req.open("GET", "https://cdn.jsdelivr.net/npm/eruda");
+  req.send();
 }
 
 window.messageListenerFunct = function messageListener (event) {
   console.log(event);
-  if (event.source == window &&
-    event.data &&
+  if (event.data &&
     event.data.direction === "from-content-script" &&
     event.data.message === "toggle") {
       console.log('t+' + performance.now() + ' ms: eruda toggled');
-    
-      /*try {
-        if (!eruda?._devTools) {
+   
+        if (!window.eruda?._devTools) {
           setTimeout(() => {
             try {
-              eruda._devTools._isShow = !0;
+              window.eruda._devTools._isShow = !0;
               replaceEruda();
             } catch (e) {
               console.warn(`t+${performance.now()} ms: caught error in timeout part:`)
               console.error(e)
             }
-          }, 100);
+          }, 500);
           return;
         }
     
-        eruda._devTools._isShow = !0;
+     /* try {
+        window.eruda._devTools._isShow = !0;
         replaceEruda();
       } catch (e) {
         console.warn(`t+${performance.now()} ms: caught error:`)
