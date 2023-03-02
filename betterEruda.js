@@ -43,26 +43,14 @@ window.messageListenerFunct = function messageListener (event) {
       console.log(window.eruda?._devTools);
       if (replacedEruda) return;
    
-        if (!window.eruda?._devTools) {
-          setTimeout(() => {
-            try {
-              window.eruda._devTools._isShow = !0;
-              replaceEruda();
-            } catch (e) {
-              console.warn(`t+${performance.now()} ms: caught error in timeout part:`)
-              console.error(e)
-            }
-          }, 500);
-          return;
+      setTimeout(() => {
+        try {
+          replaceEruda();
+        } catch (e) {
+          console.warn(`t+${performance.now()} ms: caught error in timeout part:`)
+          console.error(e)
         }
-    
-      try {
-        window.eruda._devTools._isShow = !0;
-        replaceEruda();
-      } catch (e) {
-        console.warn(`t+${performance.now()} ms: caught error:`)
-        console.error(e)
-      }
+      }, 3000);
   }
 }
 window._messageListener = window.addEventListener("message", messageListenerFunct);
