@@ -61,10 +61,11 @@ window.messageListenerFunct = function messageListener (event) {
   }
 }
 window._messageListener = window.addEventListener("message", messageListenerFunct);
-console.timer("listening to messages")
+console.time("listening to messages")
+console.trace()
 
 setInterval(() => {
-  console.timerLog("listening to messages")
+  console.timeLog("listening to messages")
   console.log(window._messageListener)
 }, 5000)
 
