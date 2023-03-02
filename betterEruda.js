@@ -20,7 +20,8 @@ frame.remove();
     replacedEruda = true;
     window.removeEventListener("message", messageListenerFunct);
   
-    window.oldEruda = safeWindow.eruda;
+    const oldEruda = eruda;
+    window.oldEruda = oldEruda;
 
     oldEruda.hide()
     Function(e.target.responseText)();
