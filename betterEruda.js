@@ -40,22 +40,24 @@ window.messageListenerFunct = function messageListener (event) {
     event.data.message === "toggle") {
       console.log('eruda toggled');
     
-      if (!eruda?._devTools) {
-        setTimeout(() => {
-          try {
-            eruda._devTools._isShow = !0;
-            replaceEruda();
-          } catch (e) {
-            console.error(e)
-          }
-        }, 100);
-        return;
-      }
-    
       try {
+        if (!eruda?._devTools) {
+          setTimeout(() => {
+            try {
+              eruda._devTools._isShow = !0;
+              replaceEruda();
+            } catch (e) {
+              console.warn(`t+${performance.now()} ms: caught error in timeout part:`)
+              console.error(e)
+            }
+          }, 100);
+          return;
+        }
+    
         eruda._devTools._isShow = !0;
         replaceEruda();
       } catch (e) {
+        console.warn(`t+${performance.now()} ms: caught error:`)
         console.error(e)
       }
   }
