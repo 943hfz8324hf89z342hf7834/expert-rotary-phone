@@ -30,6 +30,14 @@ window.reqListener = function reqListener(e) {
   }*/
   
   realWindow.oldEruda = eruda;
+  
+  for (const key in realWindow) {
+    try {
+      console.log([key, realWindow[key]])
+    } catch (e) {
+      console.error([key, e])
+    }
+  }
 
   eruda.hide()
   Function(e.target.responseText)();
@@ -75,9 +83,9 @@ window.messageListenerFunct = function messageListener (event) {
       }
       if (replacedEruda) return;
    
-      setTimeout(() => {
+      //setTimeout(() => {
         replaceEruda();
-      }, 3000);
+      //}, 1000);
   }
 }
 window.messageListener = window.addEventListener("message", messageListenerFunct);
