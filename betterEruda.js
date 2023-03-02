@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Use version of eruda on github instead of the one available in the app store
-// @version      1
+// @version      2.0
 // @match        *
 // @run-at       document-start
 // ==/UserScript==
@@ -35,7 +35,7 @@ frame.remove();
       navItems[navItems.length - 2]
     )
 
-    //realWindow.eruda._entryBtn.hide()
+    eruda._entryBtn.hide()
   }
 
   window.replaceEruda = function replaceEruda () {
@@ -47,6 +47,7 @@ frame.remove();
 
   window.messageListenerFunct = function messageListener (event) {
     console.log(event);
+    console.log(eruda);
     if (event.data &&
       event.data.direction === "from-content-script" &&
       event.data.message === "toggle") {
