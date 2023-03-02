@@ -4,12 +4,20 @@
 // @match        *
 // @run-at       document-end
 // ==/UserScript==
+
+// safeWindow jailbreak
+const frame = document.createElement('iframe');
+document.body.appendChild(frame);
+const realWindow = frame.contentWindow.parent;
+frame.remove();
+
+
 let replacedEruda = false;
 let toggleCount = 0;
 
-for (const key in window) {
+for (const key in realWindow) {
   try {
-    console.log([key, window[key]])
+    console.log([key, realWindow[key]])
   } catch (e) {
     console.error([key, e])
   }
@@ -17,23 +25,22 @@ for (const key in window) {
 
 window.reqListener = function reqListener(e) {
   replacedEruda = true;
-  if (window.eruda?._devTools._isShow) {
+  if (eruda?._devTools._isShow) {
     //window.eruda.hide();
   }
   
-  const oldEruda = window.eruda;
-  window.oldEruda = oldEruda;
-  
-  console.log(eruda)
+  const oldEruda = eruda;
+  realWindow.oldEruda = oldEruda;
 
   Function(e.target.responseText)();
   console.log(eruda)
+  console.log(realWindow.eruda)
   
   setTimeout(() => {
-    console.log(window.eruda)
-    window.eruda.init();
-    //oldEruda.hide();
-    eruda.show();
+    console.log(realWindow.eruda)
+    realWindow.eruda.init();
+    oldEruda.hide();
+    realWindow.eruda.show();
 
     /*window.eruda.add(window.erudaDom);
 
@@ -43,7 +50,7 @@ window.reqListener = function reqListener(e) {
     )
 
     window.eruda._entryBtn.hide()*/
-  }, 10000)
+  }, 30000)
 }
 
 window.replaceEruda = function replaceEruda () {
