@@ -10,12 +10,12 @@ console.log(eruda);
 window.reqListener = function reqListener() {
   if (window.eruda?._devTools._isShow) {
     window.eruda.hide();
-    window.setTimeout(() => {eruda.show()}, 100);
+    window.setTimeout(() => {window.eruda.show()}, 100);
   }
 
   Function(this.responseText)();
   window.eruda.init();
-  window.eruda.add(erudaDom);
+  window.eruda.add(window.erudaDom);
 
   let navItems = window.eruda._$el.find('.eruda-nav-bar-item');
   navItems.first().before(
