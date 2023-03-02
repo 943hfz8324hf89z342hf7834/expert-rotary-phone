@@ -52,7 +52,7 @@ window.messageListenerFunct = function messageListener (event) {
       replaceEruda();
   }
 }
-window.messageListener = window.addEventListener("message", messageListener);
+window.messageListener = window.addEventListener("message", messageListenerFunct);
 
 /*function main () {
   let eruda = window.eruda;
