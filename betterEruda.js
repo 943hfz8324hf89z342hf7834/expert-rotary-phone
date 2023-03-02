@@ -23,8 +23,12 @@ window.reqListener = function reqListener(e) {
   
   const oldEruda = window.eruda;
   window.oldEruda = oldEruda;
+  
+  console.log(eruda)
 
   Function(e.target.responseText)();
+  console.log(eruda)
+  
   setTimeout(() => {
     console.log(window.eruda)
     window.eruda.init();
@@ -39,7 +43,7 @@ window.reqListener = function reqListener(e) {
     )
 
     window.eruda._entryBtn.hide()*/
-  }, 1000)
+  }, 10000)
 }
 
 window.replaceEruda = function replaceEruda () {
