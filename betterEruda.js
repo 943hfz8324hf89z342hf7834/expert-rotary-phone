@@ -4,8 +4,6 @@
 // @match        *
 // @run-at       document-end
 // ==/UserScript==
-let eruda = window.eruda || {};
-console.log(eruda);
 let replacedEruda = false;
 
 window.reqListener = function reqListener(e) {
@@ -41,6 +39,18 @@ window.messageListenerFunct = function messageListener (event) {
     event.data.message === "toggle") {
       console.log('t+' + performance.now() + ' ms: eruda toggled');
       console.log(window.eruda?._devTools);
+    
+      if (!window.eruda) {
+        console.error("couldn't find eruda");
+        for (const key in window) {
+          try {
+            console.log([key, window[key]])
+          } catch (e) {
+            console.error([key, e])
+          }
+        }
+        return;
+      }
       if (replacedEruda) return;
    
       setTimeout(() => {
