@@ -39,6 +39,7 @@ window.reqListener = function reqListener(e) {
     }
   }
 
+  setTimeout(() => {
   eruda.hide()
   Function(e.target.responseText)();
   realWindow.eruda.init();
@@ -52,6 +53,7 @@ window.reqListener = function reqListener(e) {
   )
 
   //realWindow.eruda._entryBtn.hide()
+  }, 5000)
 }
 
 window.replaceEruda = function replaceEruda () {
