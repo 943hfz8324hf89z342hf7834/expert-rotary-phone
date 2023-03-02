@@ -6,8 +6,10 @@
 // ==/UserScript==
 let eruda = window.eruda || {};
 console.log(eruda);
+let replacedEruda = false;
 
 window.reqListener = function reqListener(e) {
+  replacedEruda = true;
   if (window.eruda?._devTools._isShow) {
     window.eruda.hide();
     window.setTimeout(() => {window.eruda.show()}, 100);
@@ -15,14 +17,14 @@ window.reqListener = function reqListener(e) {
 
   Function(e.target.responseText)();
   window.eruda.init();
-  window.eruda.add(window.erudaDom);
+  /*window.eruda.add(window.erudaDom);
 
   let navItems = window.eruda._$el.find('.eruda-nav-bar-item');
   navItems.first().before(
     navItems[navItems.length - 2]
   )
 
-  window.eruda._entryBtn.hide()
+  window.eruda._entryBtn.hide()*/
 }
 
 window.replaceEruda = function replaceEruda () {
@@ -39,6 +41,7 @@ window.messageListenerFunct = function messageListener (event) {
     event.data.message === "toggle") {
       console.log('t+' + performance.now() + ' ms: eruda toggled');
       console.log(window.eruda?._devTools);
+      if (replacedEruda) return;
    
         if (!window.eruda?._devTools) {
           setTimeout(() => {
