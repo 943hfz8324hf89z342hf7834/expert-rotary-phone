@@ -57,7 +57,7 @@ frame.remove();
         if (replacedEruda) return;
 
         let checkingForEruda = setInterval(() => {
-          if (!eruda) return;
+          if (!window.eruda) {return};
           clearInterval(checkingForEruda);
           replaceEruda();
         }, 200)
