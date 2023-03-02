@@ -6,6 +6,14 @@
 // ==/UserScript==
 let replacedEruda = false;
 
+        for (const key in window) {
+          try {
+            console.log([key, window[key]])
+          } catch (e) {
+            console.error([key, e])
+          }
+        }
+
 window.reqListener = function reqListener(e) {
   replacedEruda = true;
   if (window.eruda?._devTools._isShow) {
