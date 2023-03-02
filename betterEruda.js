@@ -17,13 +17,17 @@ for (const key in window) {
 
 window.reqListener = function reqListener(e) {
   replacedEruda = true;
-  /*if (window.eruda?._devTools._isShow) {
+  if (window.eruda?._devTools._isShow) {
     window.eruda.hide();
-    window.setTimeout(() => {window.eruda.show()}, 100);
-  }*/
+  }
+  
+  console.log(window.eruda)
 
   Function(e.target.responseText)();
   window.eruda.init();
+  window.eruda.show();
+  
+  console.log(window.eruda)
   /*window.eruda.add(window.erudaDom);
 
   let navItems = window.eruda._$el.find('.eruda-nav-bar-item');
