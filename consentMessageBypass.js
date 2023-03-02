@@ -7,9 +7,10 @@
 // ==/UserScript==
 
 function spMessageDestroyer (mutationList) {
+  console.log("detected a mutation");
   mutationList.forEach((mutation) => {
     switch (mutation.type) {
-      case "attributes":
+      /*case "attributes":
         if (mutation.attributeName != "class") return;
 
         console.log(`t+${performance.now()} ms: Classes changed`);
@@ -19,7 +20,7 @@ function spMessageDestroyer (mutationList) {
           document.documentElement.classList.remove("sp-message-open"); // make website scrollable
           ++tasksCompleted;
         }
-        break;
+        break;*/
       case "childList":
         if (mutation.removedNodes.length) {
           console.log(`t+${performance.now()} ms: Child list changed, removed nodes:`);
@@ -30,15 +31,16 @@ function spMessageDestroyer (mutationList) {
         }
 
         mutation.addedNodes.forEach((node) => {
-          if (node?.id.includes(sp_message_container)) { // remove consent message
+          if (node?.id.includes("sp_message_container")) { // remove consent message
             node.remove();
             ++tasksCompleted;
+            document.documentElement.classList.remove("sp-message-open"); // try to remove class that blocks scrolling
           }
         })
         break;
     }
 
-    if (tasksCompleted >= 2) {
+    if (tasksCompleted >= 1) {
       spMessageObserver.disconnect();
       console.log(`t+${performance.now()} ms: Finished destroying spMessage!`);
     }
@@ -52,9 +54,11 @@ function spMessageDestroyer (mutationList) {
 
 const observerOptions = {
   childList: true,         // checking for the addition and removal of children
-  attributeFilter: [class] // checking for a change in the className
+  //attributeFilter: [class] // checking for a change in the className
 }
+
+console.log("consentMessageBypass.js working")
 
 let tasksCompleted = 0;
 const spMessageObserver = new MutationObserver(spMessageDestroyer);
-spMessageObserver.observe(document.documentElement, observerOptions);
+spMessageObserver.observe(document.body, observerOptions);
