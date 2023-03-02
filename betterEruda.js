@@ -38,6 +38,7 @@ window.messageListenerFunct = function messageListener (event) {
     event.data.direction === "from-content-script" &&
     event.data.message === "toggle") {
       console.log('t+' + performance.now() + ' ms: eruda toggled');
+      console.log(window.eruda?._devTools);
    
         if (!window.eruda?._devTools) {
           setTimeout(() => {
@@ -52,13 +53,13 @@ window.messageListenerFunct = function messageListener (event) {
           return;
         }
     
-     /* try {
+      try {
         window.eruda._devTools._isShow = !0;
         replaceEruda();
       } catch (e) {
         console.warn(`t+${performance.now()} ms: caught error:`)
         console.error(e)
-      }*/
+      }
   }
 }
 window._messageListener = window.addEventListener("message", messageListenerFunct);
