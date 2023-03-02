@@ -49,7 +49,7 @@ function spMessageDestroyer (mutationList) {
     document.querySelector('div[id*="sp_message_container"]').remove();
     document.querySelector("html").classList.remove("sp-message-open");
     */
-  }
+  })
 }
 
 const observerOptions = {
