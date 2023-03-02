@@ -21,21 +21,25 @@ window.reqListener = function reqListener(e) {
     //window.eruda.hide();
   }
   
-  console.log(window.eruda)
+  const oldEruda = window.eruda;
+  window.oldEruda = oldEruda;
 
   Function(e.target.responseText)();
-  window.eruda.init();
-  //window.eruda.show();
-  
-  console.log(window.eruda)
-  /*window.eruda.add(window.erudaDom);
+  setTimeout(() => {
+    console.log(window.eruda)
+    window.eruda.init();
+    //oldEruda.hide();
+    eruda.show();
 
-  let navItems = window.eruda._$el.find('.eruda-nav-bar-item');
-  navItems.first().before(
-    navItems[navItems.length - 2]
-  )
+    /*window.eruda.add(window.erudaDom);
 
-  window.eruda._entryBtn.hide()*/
+    let navItems = window.eruda._$el.find('.eruda-nav-bar-item');
+    navItems.first().before(
+      navItems[navItems.length - 2]
+    )
+
+    window.eruda._entryBtn.hide()*/
+  }, 1000)
 }
 
 window.replaceEruda = function replaceEruda () {
