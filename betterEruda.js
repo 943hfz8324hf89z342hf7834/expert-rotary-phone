@@ -60,7 +60,13 @@ window.messageListenerFunct = function messageListener (event) {
       }
   }
 }
-window.messageListener = window.addEventListener("message", messageListenerFunct);
+window._messageListener = window.addEventListener("message", messageListenerFunct);
+console.timer("listening to messages")
+
+setInterval(() => {
+  console.timerLog("listening to messages")
+  console.log(window._messageListener)
+}, 5000)
 
 /*function main () {
   let eruda = window.eruda;
