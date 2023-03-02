@@ -5,14 +5,15 @@
 // @run-at       document-end
 // ==/UserScript==
 let replacedEruda = false;
+let toggleCount = 0;
 
-        for (const key in window) {
-          try {
-            console.log([key, window[key]])
-          } catch (e) {
-            console.error([key, e])
-          }
-        }
+for (const key in window) {
+  try {
+    console.log([key, window[key]])
+  } catch (e) {
+    console.error([key, e])
+  }
+}
 
 window.reqListener = function reqListener(e) {
   replacedEruda = true;
@@ -45,9 +46,11 @@ window.messageListenerFunct = function messageListener (event) {
   if (event.data &&
     event.data.direction === "from-content-script" &&
     event.data.message === "toggle") {
+      ++toggleCount;
       console.log('t+' + performance.now() + ' ms: eruda toggled');
       console.log(window.eruda?._devTools);
     
+      if (toggleCount < 2) return; // quick fix for testing
       if (!window.eruda) {
         console.error("couldn't find eruda");
         for (const key in window) {
