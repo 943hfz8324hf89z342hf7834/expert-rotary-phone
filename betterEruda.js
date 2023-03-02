@@ -18,14 +18,14 @@ for (const key in window) {
 window.reqListener = function reqListener(e) {
   replacedEruda = true;
   if (window.eruda?._devTools._isShow) {
-    window.eruda.hide();
+    //window.eruda.hide();
   }
   
   console.log(window.eruda)
 
   Function(e.target.responseText)();
   window.eruda.init();
-  window.eruda.show();
+  //window.eruda.show();
   
   console.log(window.eruda)
   /*window.eruda.add(window.erudaDom);
