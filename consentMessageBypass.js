@@ -7,7 +7,7 @@
 // ==/UserScript==
 
 function spMessageDestroyer (mutationList) {
-  console.log("detected a mutation");
+  console.log(`t+${performance.now()} ms: detected a DOM mutation`);
   mutationList.forEach((mutation) => {
     switch (mutation.type) {
       /*case "attributes":
@@ -57,7 +57,7 @@ const observerOptions = {
   //attributeFilter: [class] // checking for a change in the className
 }
 
-console.log("consentMessageBypass.js working")
+console.log(`t+${performance.now()} ms: consentMessageBypass.js working`)
 
 let tasksCompleted = 0;
 const spMessageObserver = new MutationObserver(spMessageDestroyer);
