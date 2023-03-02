@@ -47,19 +47,20 @@ frame.remove();
 
   window.messageListenerFunct = function messageListener (event) {
     console.log(event);
-    console.log(eruda);
     if (event.data &&
-      event.data.direction === "from-content-script" &&
-      event.data.message === "toggle") {
+      (event.data.direction === "from-content-script" && // only happens after already having clicked on the web inspector button
+      event.data.message === "toggle") ||
+      (event.data.direction === "from-page-script" && // happens the first time you click the web inspector button, eruda is not loaded yet here
+      event.data.loaded === "false")) {
         console.log('t+' + performance.now() + ' ms: eruda toggled');
     
-        if (!eruda) {
-          console.error("couldn't find eruda");
-          return;
-        }
         if (replacedEruda) return;
 
-        replaceEruda();
+        let checkingForEruda = setInterval(() => {
+          if (!eruda) return;
+          clearInterval(checkingForEruda);
+          replaceEruda();
+        }, 200)
     }
   }
 
