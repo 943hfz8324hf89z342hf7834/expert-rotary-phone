@@ -17,10 +17,10 @@ for (const key in window) {
 
 window.reqListener = function reqListener(e) {
   replacedEruda = true;
-  if (window.eruda?._devTools._isShow) {
+  /*if (window.eruda?._devTools._isShow) {
     window.eruda.hide();
     window.setTimeout(() => {window.eruda.show()}, 100);
-  }
+  }*/
 
   Function(e.target.responseText)();
   window.eruda.init();
