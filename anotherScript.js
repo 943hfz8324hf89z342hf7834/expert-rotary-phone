@@ -1,12 +1,19 @@
 // ==UserScript==
-// @name         remove giant play button
-// @description  remove the giant play button that every video has (i couldn't figure out how to just make the playbutton smaller)
-// @version      1
+// @name         resize giant play button
+// @description  resize the giant play button that every video has
+// @version      2.0
 // @match        https://piped.kavin.rocks/*
+// @match        https://piped.video/*
 // @run-at       document-end
 // ==/UserScript==
 
-let playButton = document.querySelector('.shaka-play-button');
-if (playButton && playButton.outerHTML) {
-  playButton.outerHTML = playButton.outerHTML.replace('shaka-play-button', '');
-}
+const shakaStylesheet = [...document.styleSheets]
+  .find(styleSheet => styleSheet.href?.includes("WatchVideo"));
+
+const shakaPlayButtonClass = [...shakaStylesheet.rules]
+  .find(cssRule => cssRule.selectorText == ".shaka-play-button");
+
+shakaPlayButtonClass.style.padding = "2%";
+
+// funnily enough you could do all of this in a single line:
+// [...[...document.styleSheets].find(styleSheet => styleSheet.href?.includes("WatchVideo"))?.rules].find(cssRule => cssRule.selectorText == ".shaka-play-button").style.padding = "2%";
