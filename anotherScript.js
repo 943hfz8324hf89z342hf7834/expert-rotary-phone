@@ -80,17 +80,36 @@ if (!foundShakaStylesheet) {
       .find(cssRule => cssRule.selectorText == selectorText);
   }
 
-  // play button should be smaller
-  const shakaPlayButton = getRuleFromSelector(".shaka-play-button");
-  shakaPlayButton.style.padding = "2%";
+  try {
+    // play button should be smaller
+    const shakaPlayButton = getRuleFromSelector(".shaka-play-button");
+    shakaPlayButton.style.padding = "2%";
 
-  // spinner around play button should also be smaller
-  const shakaSpinner = getRuleFromSelector(".shaka-spinner");
-  shakaSpinner.style.padding = "2.2%";
+    // spinner around play button should also be smaller
+    const shakaSpinner = getRuleFromSelector(".shaka-spinner");
+    shakaSpinner.style.padding = "2.2%";
 
-  // while being shown, play button should have a lower opacity
-  const shakaPlayButtonShown = getRuleFromSelector('.shaka-controls-container[casting="true"] .shaka-play-button, .shaka-controls-container[shown="true"] .shaka-play-button');
-  shakaPlayButtonShown.style.opacity = "0.75";
+    // while being shown, play button should have a lower opacity
+    const shakaPlayButtonShown = getRuleFromSelector('.shaka-controls-container[casting="true"] .shaka-play-button, .shaka-controls-container[shown="true"] .shaka-play-button');
+    shakaPlayButtonShown.style.opacity = "0.75";
+  } catch (e) {
+    console.error(e);
+    
+    let additionalInfo = {
+      "potentialShakaStylesheets": potentialShakaStylesheets,
+      "shakaStylesheetRules": shakaStylesheetRules,
+      "shakaPlayButton": shakaPlayButton,
+      "shakaSpinner": shakaSpinner,
+      "shakaPlayButtonShown": shakaPlayButtonShown
+    }
+    shakaStylesheetRules.forEach(cssRule, i => {
+      additionalInfo["cssRule#" + i] = cssRule;
+    });
+    
+    console.warn("<Additional Info>");
+    console.dir(additionalInfo);
+    console.warn("</Additional Info>")
+  }
 }
 
 // funnily enough you can resize the playbutton using a single line:
