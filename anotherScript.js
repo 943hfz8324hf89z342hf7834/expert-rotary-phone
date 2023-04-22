@@ -2,7 +2,8 @@
 // @name         piped custom style
 // @description  resize the giant play button that every video has (+ some other style upgrades)
 // @version      2.1.1
-// @match        https://*piped.*/*
+// @match        https://piped.*/*
+// @match        https://efy.piped.*/*
 // @run-at       document-end
 // ==/UserScript==
 
