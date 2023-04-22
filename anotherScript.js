@@ -43,7 +43,7 @@
 
 // overengineered solution to finding the stylesheet for shaka player
 const SHAKA_STYLESHEET_NAMES = [
-  "/WatchVideo.",
+  "/WatchVideo",
   "/controls."
  ];
 const STYLESHEET_NAMES_REGEXP = new RegExp(SHAKA_STYLESHEET_NAMES.join("|").replaceAll(".", "\\."), "g");
