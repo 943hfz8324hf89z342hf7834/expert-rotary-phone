@@ -50,7 +50,8 @@ const STYLESHEET_NAMES_REGEXP = new RegExp(SHAKA_STYLESHEET_NAMES.join("|").repl
 const TEST_SELECTOR = ".shaka-play-button";
 
 // stylesheets that could potentially be for shaka player
-const potentialShakaStylesheets = [...document.styleSheets]
+const allStylesheets = [...document.styleSheets];
+const potentialShakaStylesheets = allStylesheets
     .filter(styleSheet => {
       if (!styleSheet.href) return false;
       return STYLESHEET_NAMES_REGEXP.test(styleSheet.href)
@@ -72,6 +73,15 @@ for (let i = 0; i < potentialShakaStylesheets.length && !foundShakaStylesheet; i
 
 if (!foundShakaStylesheet) {
   console.error("Couldn't find Shaka Player stylesheet :( \n(That means the userscript couldn't make changes to the style of Piped)")
+  let additionalInfo = {
+    "allStylesheets": allStylesheets,
+    "potentialShakaStylesheets": potentialShakaStylesheets,
+    "shakaStylesheetRules": shakaStylesheetRules
+  }
+    
+  console.warn("<Additional Info>");
+  console.dir(additionalInfo);
+  console.warn("</Additional Info>")
 } else {
 
   // get a css rule using its selector
