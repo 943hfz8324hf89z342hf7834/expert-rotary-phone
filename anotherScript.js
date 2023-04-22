@@ -1,9 +1,8 @@
 // ==UserScript==
 // @name         piped custom style
 // @description  resize the giant play button that every video has (+ some other style upgrades)
-// @version      2.1
-// @match        https://piped.kavin.rocks/*
-// @match        https://piped.video/*
+// @version      2.1.1
+// @match        https://*piped.*/*
 // @run-at       document-end
 // ==/UserScript==
 
@@ -28,7 +27,7 @@ shakaSpinner.style.padding = "2.2%";
 
 // while being shown, play button should have a lower opacity
 const shakaPlayButtonShown = getRuleFromSelector('.shaka-controls-container[casting="true"] .shaka-play-button, .shaka-controls-container[shown="true"] .shaka-play-button');
-shakaPlayButtonShown.style.opacity = "0.5";
+shakaPlayButtonShown.style.opacity = "0.75";
 
 // funnily enough you could resize the playbutton using a single line:
 // [...[...document.styleSheets].find(styleSheet => styleSheet.href?.includes("WatchVideo"))?.rules].find(cssRule => cssRule.selectorText == ".shaka-play-button").style.padding = "2%";
