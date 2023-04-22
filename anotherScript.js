@@ -67,21 +67,28 @@ for (let i = 0; i < potentialShakaStylesheets.length && !foundShakaStylesheet; i
   else if (shakaStylesheetRules.some(cssRule => cssRule.selectorText == TEST_SELECTOR)) foundShakaStylesheet = true;
 }
 
+function logAdditionalInfo () {
+  let additionalInfo = {
+    "allStylesheets": allStylesheets,
+    "potentialShakaStylesheets": potentialShakaStylesheets,
+    "shakaStylesheetRules": shakaStylesheetRules
+  }
+  
+  shakaStylesheetRules?.forEach(cssRule, i => {
+    additionalInfo["cssRule#" + i] = cssRule;
+  });
+    
+  console.warn("<Additional Info>");
+  console.dir(additionalInfo);
+  console.warn("</Additional Info>")
+}
 
 
 // actually change the cssrules now
 
 if (!foundShakaStylesheet) {
   console.error("Couldn't find Shaka Player stylesheet :( \n(That means the userscript couldn't make changes to the style of Piped)")
-  let additionalInfo = {
-    "allStylesheets": allStylesheets,
-    "potentialShakaStylesheets": potentialShakaStylesheets,
-    "shakaStylesheetRules": shakaStylesheetRules
-  }
-    
-  console.warn("<Additional Info>");
-  console.dir(additionalInfo);
-  console.warn("</Additional Info>")
+  logAdditionalInfo()
 } else {
 
   // get a css rule using its selector
@@ -104,21 +111,7 @@ if (!foundShakaStylesheet) {
     shakaPlayButtonShown.style.opacity = "0.75";
   } catch (e) {
     console.error(e);
-    
-    let additionalInfo = {
-      "potentialShakaStylesheets": potentialShakaStylesheets,
-      "shakaStylesheetRules": shakaStylesheetRules,
-      "shakaPlayButton": shakaPlayButton,
-      "shakaSpinner": shakaSpinner,
-      "shakaPlayButtonShown": shakaPlayButtonShown
-    }
-    shakaStylesheetRules.forEach(cssRule, i => {
-      additionalInfo["cssRule#" + i] = cssRule;
-    });
-    
-    console.warn("<Additional Info>");
-    console.dir(additionalInfo);
-    console.warn("</Additional Info>")
+    logAdditionalInfo();
   }
 }
 
