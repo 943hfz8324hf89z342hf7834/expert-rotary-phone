@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         piped custom style
 // @description  resize the giant play button that every video has (+ some other style upgrades)
-// @version      2.1.1
+// @version      3.0
 // @match        https://piped.video/*
 // @match        https://piped.kavin.rocks/*
 // @match        https://efy.piped.pages.dev/*
@@ -41,28 +41,57 @@
 // @run-at       document-end
 // ==/UserScript==
 
-// stylesheet of the video player piped uses
-const shakaStylesheet = [...document.styleSheets]
-  .find(styleSheet => styleSheet.href?.includes("WatchVideo"));
-const shakaStylesheetRules = [...shakaStylesheet.rules];
+// overengineered solution to finding the stylesheet for shaka player
+const SHAKA_STYLESHEET_NAMES = [
+  "/WatchVideo.",
+  "/controls."
+ ];
+const STYLESHEET_NAMES_REGEXP = new RegExp(SHAKA_STYLESHEET_NAMES.join("|").replaceAll(".", "\\."), "g");
+const TEST_SELECTOR = ".shaka-play-button";
 
-// get a css rule using its selector
-function getRuleFromSelector (selectorText) {
-  return shakaStylesheetRules
-    .find(cssRule => cssRule.selectorText == selectorText);
+// stylesheets that could potentially be for shaka player
+const potentialShakaStylesheets = [...document.styleSheets]
+    .filter(styleSheet => {
+      if (!styleSheet.href) return false;
+      return STYLESHEET_NAMES_REGEXP.test(styleSheet.href)
+    });
+
+let shakaStylesheetRules = [];
+let foundShakaStylesheet = false;
+
+// test potential shaka stylesheet rules with a test selector until the test is successful
+for (let i = 0; i < potentialShakaStylesheets.length && !foundShakaStylesheet; i++) {
+  shakaStylesheetRules = [...potentialShakaStylesheets[i].rules];
+  if (potentialShakaStylesheets.length == 1) {foundShakaStylesheet = true}
+  else if (shakaStylesheetRules.some(cssRule => cssRule.selectorText == TEST_SELECTOR)) foundShakaStylesheet = true;
 }
 
-// play button should be smaller
-const shakaPlayButton = getRuleFromSelector(".shaka-play-button");
-shakaPlayButton.style.padding = "2%";
 
-// spinner around play button should also be smaller
-const shakaSpinner = getRuleFromSelector(".shaka-spinner");
-shakaSpinner.style.padding = "2.2%";
 
-// while being shown, play button should have a lower opacity
-const shakaPlayButtonShown = getRuleFromSelector('.shaka-controls-container[casting="true"] .shaka-play-button, .shaka-controls-container[shown="true"] .shaka-play-button');
-shakaPlayButtonShown.style.opacity = "0.75";
+// actually change the cssrules now
 
-// funnily enough you could resize the playbutton using a single line:
+if (!foundShakaStylesheet) {
+  console.error("Couldn't find Shaka Player stylesheet :( \n(That means the userscript couldn't make changes to the style of Piped)")
+} else {
+
+  // get a css rule using its selector
+  function getRuleFromSelector (selectorText) {
+    return shakaStylesheetRules
+      .find(cssRule => cssRule.selectorText == selectorText);
+  }
+
+  // play button should be smaller
+  const shakaPlayButton = getRuleFromSelector(".shaka-play-button");
+  shakaPlayButton.style.padding = "2%";
+
+  // spinner around play button should also be smaller
+  const shakaSpinner = getRuleFromSelector(".shaka-spinner");
+  shakaSpinner.style.padding = "2.2%";
+
+  // while being shown, play button should have a lower opacity
+  const shakaPlayButtonShown = getRuleFromSelector('.shaka-controls-container[casting="true"] .shaka-play-button, .shaka-controls-container[shown="true"] .shaka-play-button');
+  shakaPlayButtonShown.style.opacity = "0.75";
+}
+
+// funnily enough you can resize the playbutton using a single line:
 // [...[...document.styleSheets].find(styleSheet => styleSheet.href?.includes("WatchVideo"))?.rules].find(cssRule => cssRule.selectorText == ".shaka-play-button").style.padding = "2%";
