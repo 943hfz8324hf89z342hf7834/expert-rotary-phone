@@ -74,7 +74,7 @@ function logAdditionalInfo () {
     "shakaStylesheetRules": shakaStylesheetRules
   }
   
-  shakaStylesheetRules?.forEach(cssRule, i => {
+  shakaStylesheetRules?.forEach((cssRule, i) => {
     additionalInfo["cssRule#" + i] = cssRule;
   });
     
