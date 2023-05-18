@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Use version of eruda on github instead of the one available in the app store
-// @version      3.0 testing 5
+// @version      3.0 testing 6
 // @match        *
 // @run-at       document-start
 // ==/UserScript==
@@ -9,6 +9,7 @@
 const frame = document.createElement('iframe');
 document.body.appendChild(frame);
 const realWindow = frame.contentWindow.parent;
+// apparently "frame.remove()" breaks things for some reason?
 //frame.remove();
 
 
@@ -37,7 +38,12 @@ const realWindow = frame.contentWindow.parent;
     window.oldEruda = oldEruda;
 
     oldEruda.hide()
-    runNewEruda(e?.target?.responseText);
+   // i'm adding try catch here as a last ditch effort to stop errors from happening now that i no longer use the http request version
+    try {
+      runNewEruda(e?.target?.responseText);
+    } catch (e) {
+      console.error(e)
+    }
     //Function(e.target.responseText)();
     eruda.init();
     eruda.show();
