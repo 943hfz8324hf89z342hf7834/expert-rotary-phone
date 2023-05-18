@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Use version of eruda on github instead of the one available in the app store
-// @version      3.0 testing 4
+// @version      3.0 testing 5
 // @match        *
 // @run-at       document-start
 // ==/UserScript==
@@ -9,7 +9,7 @@
 const frame = document.createElement('iframe');
 document.body.appendChild(frame);
 const realWindow = frame.contentWindow.parent;
-frame.remove()
+//frame.remove();
 
 
 
