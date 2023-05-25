@@ -34,6 +34,24 @@ frame.remove();
     navItems.first().before(
       navItems[navItems.length - 2]
     )
+    
+    window.addErudaSwitcher = (currEruda, otherEruda) => {
+      currEruda.add({
+          name: 'Switch Eruda',
+          init($el) {this._$el = $el;},
+          show() {
+            currEruda.remove('switch eruda');
+            currEruda.hide();
+      
+            window.addErudaSwitcher(otherEruda, currEruda);
+            otherEruda.show();
+          },
+          hide() {},
+          destroy() {}
+      });
+    }
+    
+    addErudaSwitcher(eruda, oldEruda);
 
     eruda._entryBtn.hide()
   }
