@@ -44,6 +44,7 @@ frame.remove();
             currEruda.hide();
       
             window.addErudaSwitcher(otherEruda, currEruda);
+            otherEruda.show('console');
             otherEruda.show();
           },
           hide() {},
