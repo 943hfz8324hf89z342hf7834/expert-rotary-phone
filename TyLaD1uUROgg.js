@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         user script because eruda doesn't work here so i'm trying this instead
 // @version      1.0-PmJLEgmJu59W
-// @match        https://dokicloud.one/embed-4/PmJLEgmJu59W?z=
+// @match        https://dokicloud.one/embed-4/*
 // @run-at       document-end
 // ==/UserScript==
 
@@ -9,7 +9,7 @@ let subtitle = `data:text/vtt,WEBVTT%0A1%0A00%3A00%3A39.961%20--%3E%2000%3A00%3A
 
 let track = document.createElement('track');
 track.kind = 'captions';
-track.label = 'English (custom)';
+track.label = 'English (Infinity War)';
 track.srclang = 'en';
 track.src = subtitle;
 track.mode = 'showing';
