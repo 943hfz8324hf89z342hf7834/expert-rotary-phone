@@ -12,8 +12,6 @@ let path = window.location.pathname
   , willinglySignedOut = window.localStorage?.getItem('willinglySignedOut') == 'true' ? true : false
   , useFallback = !window.localStorage || window.localStorage.length < 2;
 
-// this is an absolute mess but it works and i'm tired 
-// (i wrote this because localStorage didn't work but that was just because i used @run-at: document-start instead of @run-at: document-end. i put so much work into this but i could've fixed this so easily if i just knew what the issue was and i'm really annoyed now. i guess i'll just use this as a fallback)
 //if (useFallback) {
 // lastPage and willinglySignedOut stored in url
 let search = window.location.search.replace('?', '')
@@ -112,7 +110,7 @@ function isSignedIn () {
         // link to either account or login page
         signedIn = document.querySelectorAll('a')[1].href.includes('/users/home');
     } else {
-        signedIn = document.body.dataset.userIsVerified == 'true' ? true : false;
+        signedIn = document.body.dataset.userIsMember == 'true' ? true : false;
     };
     console.log('isSignedIn: ' + signedIn);
     return signedIn;
