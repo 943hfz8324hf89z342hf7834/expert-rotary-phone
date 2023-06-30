@@ -18,7 +18,7 @@ if (window.location.pathname == '/') {
     }
     console.log('on main page', signedInCheck, signedIn);
 } else {
-    signedInCheck = document.body.attributes.getNamedItem('data-user-is-verified');
+    signedInCheck = document.body.attributes.getNamedItem('data-user-is-member');
     if (!signedInCheck) {
         signedIn = 'unknown';
     } else {
@@ -34,9 +34,9 @@ if (!signedIn) {
 <form class="simple_form" action="/session" method="post" hidden="true" rel="noopener">
     <input name="authenticity_token" value="G8Y5devgxjvIMImOJozeRiAs5uYvV8_c05-MD63kdcz9mrriw9KeDzmZsZalindI1dFrTdfkTaG-ndQeUZcHHQ">
 
-    <input name="name" value="I-a_b-">
+    <input name="name">
 
-    <input name="password" value=";zYgV,%mn">
+    <input name="password">
 
     <input id="submit_button" type="submit">
 </form>`;
