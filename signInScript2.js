@@ -138,11 +138,12 @@ if (downloadEl) {
     newImageEl.src = downloadEl.href;
     //newImageEl.style.display = 'none';
     document.body.appendChild(newImageEl);
-  
-    downloadEl.download = encodeURIComponent(imageCont.dataset.tags) + '.' + imageCont.dataset.fileExt;
-    downloadEl.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
+    console.log(getDataURL(newImageEl, "png"));
   
     try {
+      downloadEl.download = encodeURIComponent(imageCont.dataset.tags) + '.' + imageCont.dataset.fileExt;
+      downloadEl.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
+  
       let downloadElClone = downloadEl.cloneNode();
       downloadElClone.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
       document.querySelector('#image-download-link').appendChild(downloadElClone);
