@@ -133,7 +133,7 @@ if (downloadEl) {
     let imageCont = document.querySelector('#image-container');
     let newImageEl = document.createElement('img');
     newImageEl.src = downloadEl.href;
-    newImageEl.style.display = 'none';
+    //newImageEl.style.display = 'none';
     document.body.appendChild(newImageEl);
   
     downloadEl.download = encodeURIComponent(imageCont.dataset.tags) + '.' + imageCont.dataset.fileExt;
