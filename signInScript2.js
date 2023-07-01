@@ -116,6 +116,16 @@ function isSignedIn () {
     return signedIn;
 }
 
+// use tags as filename when downloading full image
+let downloadEl = document.querySelector('#image-download-link a');
+if (downloadEl) {
+	let imageEl = document.querySelector('#image-container');
+	
+	console.log(JSON.stringify(imageEl.dataset, null, 2))
+	
+	downloadEl.download = imageEl.dataset.tags + '.' + imageEl.dataset.fileExt;
+}
+
 // add last visited page on login page
 if (path == '/session/new') {
     let urlInput = document.querySelector('#url')
