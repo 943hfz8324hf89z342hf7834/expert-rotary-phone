@@ -132,15 +132,16 @@ function getDataURL(img, fileExt) {
 }
 
 let downloadEl = document.querySelector('#image-download-link a');
+
 if (downloadEl) {
-    let imageCont = document.querySelector('#image-container');
+    //let imageCont = document.querySelector('#image-container');
     let newImageEl = document.createElement('img');
     newImageEl.src = downloadEl.href;
     //newImageEl.style.display = 'none';
     document.body.appendChild(newImageEl);
     console.log(getDataURL(newImageEl, "png"));
   
-    try {
+    /*try {
       downloadEl.download = encodeURIComponent(imageCont.dataset.tags) + '.' + imageCont.dataset.fileExt;
       downloadEl.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
   
@@ -150,7 +151,7 @@ if (downloadEl) {
     } catch (e) {
       console.error('cloned node: ')
       console.error(e)
-    }
+    }*/
 }
 
 // add last visited page on login page
