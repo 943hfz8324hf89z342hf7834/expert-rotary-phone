@@ -126,7 +126,9 @@ function getDataURL(img, fileExt) {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
 
-    return canvas.toDataURL("image/" + fileExt);
+    let dataURL = canvas.toDataURL("image/" + fileExt);
+    console.log(dataURL);
+    return dataURL;
 }
 
 let downloadEl = document.querySelector('#image-download-link a');
@@ -139,11 +141,15 @@ if (downloadEl) {
   
     downloadEl.download = encodeURIComponent(imageCont.dataset.tags) + '.' + imageCont.dataset.fileExt;
     downloadEl.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
-    
-    let downloadElClone = downloadEl.cloneNode();
-    downloadElClone.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
-    console.log(getDataURL(newImageEl, imageCont.dataset.fileExt));
-    document.querySelector('#image-download-link').appendChild(downloadElClone);
+  
+    try {
+      let downloadElClone = downloadEl.cloneNode();
+      downloadElClone.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
+      document.querySelector('#image-download-link').appendChild(downloadElClone);
+    } catch (e) {
+      console.error('cloned node: ')
+      console.error(e)
+    }
 }
 
 // add last visited page on login page
