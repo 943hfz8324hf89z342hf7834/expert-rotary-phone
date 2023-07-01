@@ -119,6 +119,7 @@ function isSignedIn () {
 // use tags as filename when downloading full image
 function getDataURL(img, fileExt) {
     var canvas = document.createElement("canvas");
+    document.body.appemdChild(canvas);
     canvas.width = img.width;
     canvas.height = img.height;
 
@@ -138,8 +139,10 @@ if (downloadEl) {
   
     downloadEl.download = encodeURIComponent(imageCont.dataset.tags) + '.' + imageCont.dataset.fileExt;
     downloadEl.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
-    /*let downloadElClone = downloadEl.cloneNode();
-    downloadElClone.download = "test.png";
+    
+    let downloadElClone = downloadEl.cloneNode();
+    downloadElClone.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
+    console.log(getDataURL(newImageEl, imageCont.dataset.fileExt));
     document.querySelector('#image-download-link').appendChild(downloadElClone);*/
 }
 
