@@ -143,7 +143,7 @@ if (downloadEl) {
     let downloadElClone = downloadEl.cloneNode();
     downloadElClone.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
     console.log(getDataURL(newImageEl, imageCont.dataset.fileExt));
-    document.querySelector('#image-download-link').appendChild(downloadElClone);*/
+    document.querySelector('#image-download-link').appendChild(downloadElClone);
 }
 
 // add last visited page on login page
