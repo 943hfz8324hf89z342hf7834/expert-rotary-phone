@@ -117,7 +117,7 @@ function isSignedIn () {
 }
 
 // use tags as filename when downloading full image
-function getDataURL(img, fileExt) {
+/*function getDataURL(img, fileExt) {
     var canvas = document.createElement("canvas");
     document.body.appendChild(canvas);
     canvas.width = img.width;
@@ -151,8 +151,8 @@ if (downloadEl) {
     } catch (e) {
       console.error('cloned node: ')
       console.error(e)
-    }*/
-}
+    }*//*
+}*/
 
 // add last visited page on login page
 if (path == '/session/new') {
