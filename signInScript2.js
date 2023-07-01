@@ -117,13 +117,29 @@ function isSignedIn () {
 }
 
 // use tags as filename when downloading full image
+function getDataURL(img, fileExt) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    return canvas.toDataURL("image/" + fileExt);
+}
+
 let downloadEl = document.querySelector('#image-download-link a');
 if (downloadEl) {
-    let imageEl = document.querySelector('#image-container');
-    downloadEl.download = encodeURIComponent(imageEl.dataset.tags) + '.' + imageEl.dataset.fileExt;
-    let downloadElClone = downloadEl.cloneNode();
+    let imageCont = document.querySelector('#image-container');
+    let newImageEl = document.createElement('img');
+    newImageEl.src = downloadEl.href;
+    newImageEl.style.display = 'none';
+  
+    downloadEl.download = encodeURIComponent(imageCont.dataset.tags) + '.' + imageCont.dataset.fileExt;
+    downloadEl.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
+    /*let downloadElClone = downloadEl.cloneNode();
     downloadElClone.download = "test.png";
-    document.querySelector('#image-download-link').appendChild(downloadElClone);
+    document.querySelector('#image-download-link').appendChild(downloadElClone);*/
 }
 
 // add last visited page on login page
