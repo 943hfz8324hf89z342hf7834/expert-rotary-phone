@@ -134,6 +134,7 @@ if (downloadEl) {
     let newImageEl = document.createElement('img');
     newImageEl.src = downloadEl.href;
     newImageEl.style.display = 'none';
+    document.body.appendChild(newImageEl);
   
     downloadEl.download = encodeURIComponent(imageCont.dataset.tags) + '.' + imageCont.dataset.fileExt;
     downloadEl.href = getDataURL(newImageEl, imageCont.dataset.fileExt);
