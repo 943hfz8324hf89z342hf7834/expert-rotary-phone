@@ -119,11 +119,11 @@ function isSignedIn () {
 // use tags as filename when downloading full image
 let downloadEl = document.querySelector('#image-download-link a');
 if (downloadEl) {
-	let imageEl = document.querySelector('#image-container');
-	
-	console.log(JSON.stringify(imageEl.dataset, null, 2))
-	
-	downloadEl.download = imageEl.dataset.tags + '.' + imageEl.dataset.fileExt;
+    let imageEl = document.querySelector('#image-container');
+    downloadEl.download = encodeURIComponent(imageEl.dataset.tags) + '.' + imageEl.dataset.fileExt;
+    let downloadElClone = downloadEl.cloneNode();
+    downloadElClone.download = "test.png";
+    document.querySelector('#image-download-link').appendChild(downloadElClone);
 }
 
 // add last visited page on login page
