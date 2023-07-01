@@ -119,7 +119,7 @@ function isSignedIn () {
 // use tags as filename when downloading full image
 function getDataURL(img, fileExt) {
     var canvas = document.createElement("canvas");
-    document.body.appemdChild(canvas);
+    document.body.appendChild(canvas);
     canvas.width = img.width;
     canvas.height = img.height;
 
