@@ -56,9 +56,7 @@ function loadShortcut (scUUID) {
       scValues["trueShortcutLink"] = trueShortcutLink;
       window.scLink = trueShortcutLink;
 
-      const scInfoEl = document.createElement("div");
-      document.querySelector("#main").appendChild(scInfoEl);
-      scInfoEl.innerText = JSON.stringify(scValues, null, 2);
+      document.querySelector("#shortcutInfo").innerText += JSON.stringify(scValues, null, 2);
 	  } else {
 	    //window.main.showError(elIds.ErrorNotFoundID)
   	}
@@ -69,4 +67,11 @@ function loadShortcut (scUUID) {
 };
 
 const scUUID = getShortcutUUIDFromPath();
+
+const scInfoEl = document.createElement("div");
+scInfoEl.id = "shortcutInfo";
+document.querySelector("#main").appendChild(scInfoEl);
+
 loadShortcut(scUUID);
+
+scInfoEl.innerText += "\n\nworkflow://shortcuts/" + encodeURIComponent(scUUID);
