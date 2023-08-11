@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         user script because eruda doesn't work here so i'm trying this instead
 // @version      1.1-VhvZnXAvocgV
-// @match        https://dokicloud.one/embed-4/bHe08xczKTVO?z=
+// @match        https://dokicloud.one/embed-4/TurSNJjXdWxT?z=
 // @run-at       document-end
 // ==/UserScript==
 
