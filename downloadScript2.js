@@ -20,6 +20,7 @@ window.clickListener = document.addEventListener('click', (e) => {
         document.body.appendChild(download);
         download.href = videoUrl;
         download.download = '';
+        download.target = '_blank';
         download.click();
         document.body.removeChild(download);
         break;
