@@ -12,7 +12,7 @@ window.clickListener = document.addEventListener('click', (e) => {
       case 'i':
       case 'a':
       case 'li':
-        const videoUrl = document.querySelector('video').src;
+        const videoUrl = kvsplayer.kt_player.conf.video_url;
         const download = document.createElement('a');
         
         document.querySelector('.block-share textarea').value = videoUrl;
