@@ -7,21 +7,22 @@
 // ==/UserScript==
 
 window.clickListener = document.addEventListener('click', (e) => {
-  if (e.toElement.children.length > 0 && e.toElement.outerHTML.includes('ico-share')) {
+  if (e.toElement.outerHTML.includes('class="title')) {
     switch (e.toElement.tagName.toLowerCase()) {
-      case 'i':
-      case 'a':
+      case 'span':
       case 'li':
         const videoUrl = kvsplayer.kt_player.conf.video_url;
         const download = document.createElement('a');
-        
-        document.querySelector('.block-share textarea').value = videoUrl;
+        window.downloadLink = download;
     
         document.body.appendChild(download);
         download.href = videoUrl;
         download.download = '';
         download.target = '_blank';
-        download.click();
+        download.filename = document.querySelector('.headline').innerText;
+        setTimeout(() => {
+          downloadLink.click();
+        }, 0);
         document.body.removeChild(download);
         break;
     }
